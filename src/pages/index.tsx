@@ -1,13 +1,12 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-
-import Navbar from "~/components";
+import Footer from "~/components/Footer";
 
 const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>EarthScanner</title>
+        <title>EarthSensor</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,9 +22,9 @@ const Home: NextPage = () => {
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
       <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#2dd4bf] to-[#0f766e]">
-        <Navbar />
         <h1>Hello World</h1>
       </main>
+      <Footer />
     </>
   );
 };
