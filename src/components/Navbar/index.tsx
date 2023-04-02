@@ -1,10 +1,14 @@
 import Link from "next/link"
+import Image from "next/image"
+import Logo from 'public/assets/earthsensor.png'
 
 export default function Navbar() {
   return (
     <nav className="navbar  bg-black bg-opacity-50 backdrop-filter backdrop-saturate-180 backdrop-blur-10 box-shadow-md">
       <div className="flex-1">
-        <Link href="http://localhost:3000" className="btn btn-ghost normal-case text-xl">EarthScanner</Link>
+        <Link href="http://localhost:3000" className="btn btn-ghost normal-case text-xl">
+          <Image src={Logo} alt="Logo" width="150" height="150"></Image>
+        </Link>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">
