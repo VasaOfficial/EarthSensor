@@ -16,8 +16,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",
-    
+    "baseUrl": ".",  
     "paths": {
       "~/*": ["./src/*"]
     }
@@ -29,6 +28,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-, "src/pages/404.tsx"  ],
+, "src/pages/404.tsx", "src/components/Nav/Box.js"  ],
   "exclude": ["node_modules"]
 }
