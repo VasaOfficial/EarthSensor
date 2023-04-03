@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <nav className="navbar  bg-black bg-opacity-50 backdrop-filter backdrop-saturate-180 backdrop-blur-10 box-shadow-md">
       <div className="flex-1">
-        <Link href="http://localhost:3000" className="btn btn-ghost normal-case text-xl">
+        <Link href="/" className="btn btn-ghost normal-case text-xl">
           <Image src={Logo} alt="Logo" width="150" height="150"></Image>
         </Link>
       </div>

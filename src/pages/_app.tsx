@@ -1,6 +1,7 @@
 import { type AppType } from "next/dist/shared/lib/utils";
 import Head from "next/head";
 import "~/styles/globals.css";
+import NextNProgress from 'nextjs-progressbar';
 
 // favicon imports
 import Favicon32 from 'public/favicon/favicon-32x32.png'
@@ -23,6 +24,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
+      <NextNProgress color="#84cc16" height={4}/>
       <Component {...pageProps} />
     </>
   )

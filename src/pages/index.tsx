@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Footer from "~/components/Footer";
-import Favicon from 'public/favicon/favicon-32x32.png'
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -11,6 +11,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#2dd4bf] to-[#0f766e]">
         <h1>Hello World</h1>
+          <Link href='/information'>GO NOW</Link>
       </main>
       <Footer />
     </>
