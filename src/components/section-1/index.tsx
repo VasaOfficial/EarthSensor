@@ -1,3 +1,7 @@
+import Search from "../search"
+import Image from "next/image"
+import Location from 'public/assets/location.png'
+
 export default function Section1() {
   return (
     <section id="hero" className='flex items-center justify-center w-full h-[80vh] max-h-[45rem] md:max-h-[80vh] md:h-[80vh] overflow-hidden
@@ -14,6 +18,19 @@ export default function Section1() {
             Discover the current AQI (Air Quality Index) of the closest
             station to your city.
           </p>
+          <div className='flex gap-4 relative'>
+            <div id='search' className='z-50 relative h-12 flex gap-4 flex-shrink w-full sm:max-w-[16rem] bottom-0 right-0'>
+              <Search />
+            </div>
+            <button aria-label='geo location' className='leading-[0] opacity-90 transition-all hover:scale-110'>
+                  <Image aria-hidden='true'
+                    src={Location}
+                    alt='geo location'
+                    width={50}
+                    height={50}
+                  />
+                </button>
+          </div>
         </div>
       </div>
         {/*--- EARTH --*/}
