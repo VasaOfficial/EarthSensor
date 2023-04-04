@@ -16,7 +16,7 @@ export default function Section1() {
           </h1>
           <p className='opacity-70'>
             Discover the current AQI (Air Quality Index) of the closest
-            station to your city.
+            station to your location.
           </p>
           <div className='flex gap-4 relative'>
             <div id='search' className='z-50 relative h-12 flex gap-4 flex-shrink w-full sm:max-w-[16rem] bottom-0 right-0'>
@@ -34,7 +34,9 @@ export default function Section1() {
         </div>
       </div>
         {/*--- EARTH --*/}
-        <div className="globe"></div>
+        <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2'>
+          <div></div>
+        </div>
       </div>  
     </section>
   )
