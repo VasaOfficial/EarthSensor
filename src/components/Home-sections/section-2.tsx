@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Collapse, Text, Grid } from '@nextui-org/react';
+import { Collapse, Grid } from '@nextui-org/react';
 import City from 'public/assets/polluted-city.jpg'
 
 
@@ -43,72 +43,65 @@ export default function Section2() {
       <Grid>
         <Collapse.Group splitted>
           <Collapse title="Industries & heating">
-            <Text>
-            <p>
+            <p className="text-green-700 font-semibold">
                 The combustion of fossil fuels such as coal and oil in
                 industrial processes in power plants, refineries, and factories
                 release a variety of pollutants, the majority of which are
-                identical to those emitted by traffic and mobility.
-              </p> <br />
-              <p>
+                identical to those emitted by traffic and mobility. 
+                <br />
+                <br />
                 On top of this, chemical processes and volatile industry
                 byproducts also cause VOC emissions. In Europe, around 60% of
                 sulfur oxides come from energy production and distribution. In
                 the US, stationary fuel combustion sources like electric
                 utilities and industrial boilers are responsible for 73.2% of
                 sulfur dioxide pollution.
-              </p>
-            </Text>
+            </p>
           </Collapse>
           <Collapse title="Traffic & mobility">
-            <Text>
-            <p>
+            <p className="text-green-700 font-semibold">
                 Petrol and diesel engines of cars, ships, trains and other
                 vehicles emit pollutants such as carbon monoxide (CO), nitrogen
                 oxides (NOx), particulate matter (PM), sulfur dioxide (SO2), and
                 volatile organic compounds (VOCs).
-              </p> <br />
-              <p>
+                <br />
+                <br />
                 Friction from tires and brake wear also create primary – i.e.
                 direct – particulate matter emissions. In addition, the nitrogen
                 dioxide (NO2) and VOCs released by road vehicles also undergo
                 photochemical reactions to form ozone (O3).
-              </p> <br />
-              <p>
+                <br/>
+                <br />
                 In Europe, more than 40% of NOx and almost 40% of primary PM2.5
                 emissions are linked to road transport. In the United States,
                 35.8% of CO and 32.8% of NOx stem from road transport.
-              </p>
-            </Text>
+            </p>
           </Collapse>
           <Collapse title="Agriculture">
-            <Text>
-            <p>
+            <p className="text-green-700 font-semibold">
                 A wide range of nitrogen compounds (NO, NO2, N2), including
                 ammonia (NH3), can be attributed to fertilizer production, farm
                 machinery, and livestock waste management in agriculture. In
                 addition, methane (CH4) is released by the digestive processes
                 of livestock.
-              </p> <br />
-              <p>
+                <br />
+                <br />
                 In Europe, agricultural activities cause approximately 90% of
                 ammonia emissions and 80% of methane emissions. In the US,
                 livestock and manure management are responsible for 46% of
                 methane emissions. transport.
-              </p>
-            </Text>
+            </p>
           </Collapse>
           <Collapse title="Burning of Fossil Fuels">
-            <Text>
-            <p>
+            <p className="text-green-700">
                 Sulfur dioxide emitted from the combustion of fossil fuels like
                 coal, petroleum for energy in power plants, and other factory
                 combustibles is one the major cause of air pollution. Billions
                 of vehicles run on roads are powered by gasoline and diesel
                 engines that burn petroleum for releasing energy. Petroleum is
                 made up of hydrocarbons, and engines don’t burn them cleanly.
-              </p> <br />
-              <p>
+                <br />
+                <br />
                 As a result, pollutants such as PM, nitric oxide and NO2
                 (together referred to as NOx), carbon monoxide, organic
                 compounds, and lead emit from vehicles including trucks, jeeps,
@@ -116,8 +109,8 @@ export default function Section2() {
                 These modes of transportation form part of our daily basic
                 needs, so we rely on them heavily. But, their overuse is killing
                 our environment as dangerous gases are polluting the atmosphere.
-              </p> <br />
-              <p>
+                <br />
+                <br />
                 Carbon Monoxide caused by improper or incomplete combustion and
                 generally emitted from vehicles is another major pollutant along
                 with Nitrogen Oxides, that is produced from both natural and
@@ -125,8 +118,7 @@ export default function Section2() {
                 exposure to outdoor air pollution contributes to as much as 0.6
                 to 1.4 percent of the burden of disease and 4.2 million deaths
                 every year.
-              </p>
-            </Text>
+            </p>
           </Collapse>
         </Collapse.Group>
       </Grid>
