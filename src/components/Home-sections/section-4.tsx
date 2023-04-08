@@ -112,14 +112,14 @@ function Top10Chart() {
       <Table.Body items={rows}>
         {(item: Row) => (
           <Table.Row key={item.key}>
-            <Table.Cell>{item.rank}</Table.Cell>
-            <Table.Cell>
+            <Table.Cell css={{ fontWeight: 'bold' }}>{item.rank}</Table.Cell>
+            <Table.Cell css={{ fontWeight: 'bold' }}>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <Image src={item.flag} alt={item.country} width={34} height={22} style={{marginRight: "10px"}} />
                 {item.country}
               </div>
             </Table.Cell>
-            <Table.Cell>{item.aqi}</Table.Cell>
+            <Table.Cell css={{ color: '#b91c1c', fontWeight: 'bold' }}>{item.aqi}</Table.Cell>
           </Table.Row>
         )}
       </Table.Body>
@@ -143,6 +143,7 @@ export default function Section4() {
               </h3>
               <cite className='text-xs'>
                 <a
+                  className="text-blue-900"
                   href='https://www.iqair.com/world-most-polluted-countries'
                   target='_blank'
                   rel='noreferrer'>
