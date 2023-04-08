@@ -1,10 +1,12 @@
 import { Table, Card, Text } from "@nextui-org/react"
+import Image from "next/image";
 
 interface Row {
   key: string;
   rank: number;
   country: string;
   aqi: number;
+  flag: string;
 }
 
 function Top10Chart() {
@@ -28,60 +30,70 @@ function Top10Chart() {
       rank: 1,
       country: "Chad",
       aqi: 89.7,
+      flag: "/assets/flags/chad.jpg",
     },
     {
       key: "2",
       rank: 2,
       country: "Iraq",
       aqi: 80.1,
+      flag: "/assets/flags/iraq.jpg",
     },
     {
       key: "3",
       rank: 3,
       country: "Pakistan",
       aqi: 70.9,
+      flag: "/assets/flags/pakistan.jpg",
     },
     {
       key: "4",
       rank: 4,
       country: "Bahrain",
       aqi: 66.6,
+      flag: "/assets/flags/bahrain.jpg",
     },
     {
       key: "5",
       rank: 5,
       country: "Bangladesh",
       aqi: 65.8,
+      flag: "/assets/flags/bangladesh.jpg",
     },
     {
       key: "6",
       rank: 6,
       country: "Burkina Faso",
       aqi: 63,
+      flag: "/assets/flags/burkina-faso.jpg",
     },
     {
       key: "7",
       rank: 7,
       country: "Kuwait",
       aqi: 55.8,
+      flag: "/assets/flags/kuwait.jpg",
     },
     {
       key: "8",
       rank: 8,
       country: "India",
       aqi: 53.3,
+      flag: "/assets/flags/india.jpg",
     },
     {
       key: "9",
       rank: 9,
       country: "Egypt",
       aqi: 46.5,
+      flag: "/assets/flags/egypt.jpg",
     },
     {
       key: "10",
       rank: 10,
       country: "Tajikistan",
       aqi: 46,
+      flag: "/assets/flags/tajikistan.jpg",
     },
   ];
   return (
@@ -100,11 +112,14 @@ function Top10Chart() {
       <Table.Body items={rows}>
         {(item: Row) => (
           <Table.Row key={item.key}>
-            {columns.map((column) => (
-              <Table.Cell key={column.key}>
-                {item[column.key as keyof Row]}
-              </Table.Cell>
-            ))}
+            <Table.Cell>{item.rank}</Table.Cell>
+            <Table.Cell>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Image src={item.flag} alt={item.country} width={34} height={22} style={{marginRight: "10px"}} />
+                {item.country}
+              </div>
+            </Table.Cell>
+            <Table.Cell>{item.aqi}</Table.Cell>
           </Table.Row>
         )}
       </Table.Body>
