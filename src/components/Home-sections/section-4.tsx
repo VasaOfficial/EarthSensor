@@ -131,7 +131,7 @@ function Top10Chart() {
 export default function Section4() {
   return (
     <section className='z-10 py-28 px-[5vw] flex flex-col items-center justify-center bg-neutral-200 relative mx-auto text-lg w-full'>
-        <article className='z-10 md:min-h-[40rem] flex flex-row items-center gap-24 md:gap-0 md:flex-row w-full max-w-[60rem]'>
+        <article className='z-10 md:min-h-[40rem] flex flex-row items-center gap-24 md:gap-0 md:flex-row w-full max-w-[70rem]'>
           <div className='w-full md:w-3/5 h-[40rem] overflow-hidden md:self-start'>
             <div className='flex gap-2 items-center opacity-80'>
               <h3>
@@ -153,12 +153,12 @@ export default function Section4() {
             </div>
             <Top10Chart />
           </div>
-          <Card className="max-w-[25rem]">
+          <Card css={{ maxWidth: '450px', height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', marginLeft: '2rem' }}>
             <Card.Header>
-              <Text b>Card Title</Text>
+              <Text css={{width: '100%', textAlign: 'center', fontSize: '1.2rem', fontWeight: '700', paddingTop: '1rem'}}>Some countries are hit harder than others</Text>
             </Card.Header>
-            <Card.Body className="py-10">
-            <Text>
+            <Card.Body>
+            <Text css={{fontWeight: '500'}}>
               The{' '}
               <abbr className='decoration-black/30 underline-offset-4' title='World Health Organization'>
                 WHO
