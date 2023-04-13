@@ -6,10 +6,14 @@ export default function Information() {
   return (
     <>
     <Head>
-    <title>EarthSensor | Search</title>
+      <title>EarthSensor | Search</title>
     </Head>
+    <main>
       <Navbar />
+    </main>
+    <footer>
       <Footer />
+    </footer>
     </>
   )
 }

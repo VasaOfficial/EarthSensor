@@ -7,6 +7,7 @@ import Section2 from "~/components/Home-sections/section-2";
 import Section3 from "~/components/Home-sections/section-3";
 import Section4 from "~/components/Home-sections/section-4";
 import Section5 from "~/components/Home-sections/section-5";
+import UpBtn from "~/components/ScrollBtn";
 
 const Home: NextPage = () => {
   return (
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
       <footer>
         <Footer />
       </footer>
+      <UpBtn />
     </>
   );
 };
