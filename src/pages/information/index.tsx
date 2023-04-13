@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Footer from "~/components/Footer"
 import Navbar from "~/components/Navbar"
+import UpBtn from "~/components/ScrollBtn"
 
 export default function Information() {
   return (
@@ -14,6 +15,7 @@ export default function Information() {
     <footer>
       <Footer />
     </footer>
+      <UpBtn />
     </>
   )
 }

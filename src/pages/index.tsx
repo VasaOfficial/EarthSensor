@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 
@@ -10,6 +11,20 @@ import Section5 from "~/components/Home-sections/section-5";
 import UpBtn from "~/components/ScrollBtn";
 
 const Home: NextPage = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentPosition = window.pageYOffset;
+      setScrollPosition(currentPosition);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <Head>
@@ -25,7 +40,7 @@ const Home: NextPage = () => {
       <footer>
         <Footer />
       </footer>
-      <UpBtn />
+      {scrollPosition > 500 && <UpBtn />}
     </>
   );
 };
