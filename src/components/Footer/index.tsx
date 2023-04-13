@@ -6,7 +6,7 @@ import Website from 'public/assets/portfolio.png'
 
 export default function Footer() {
   return (
-    <footer className="footer items-center p-4 text-neutral-content bg-[#020617]">
+    <footer className="footer relative items-center w-full p-4 text-neutral-content bg-[#020617]">
       <div className="flex items-center">
         <Image className='pb-1' src={Logo} alt='Logo' width="150" height="150"></Image>
         <p>Copyright © 2023 - All right reserved by Vasilije Pleskonjic</p>
