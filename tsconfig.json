@@ -28,6 +28,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-, "src/pages/404.tsx", "src/components/Nav/Box.js"  ],
+, "src/pages/404.tsx", "src/components/Nav/Box.js", "src/components/Earth/index.jsx"  ],
   "exclude": ["node_modules"]
 }

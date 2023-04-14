@@ -1,6 +1,7 @@
 import Search from "../search"
 import Image from "next/image"
 import Location from 'public/assets/location.png'
+import Map from "../Earth"
 
 export default function Section1() {
   return (
@@ -35,7 +36,9 @@ export default function Section1() {
       </div>
         {/*--- EARTH --*/}
         <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2'>
-          <div></div>
+          <div>
+            <Map />
+          </div>
         </div>
       </div>  
     </section>
