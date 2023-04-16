@@ -3,6 +3,7 @@ import Head from "next/head";
 import "~/styles/globals.css";
 import NextNProgress from 'nextjs-progressbar';
 import { NextUIProvider } from '@nextui-org/react';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 // favicon imports
 import Favicon32 from 'public/favicon/favicon-32x32.png'

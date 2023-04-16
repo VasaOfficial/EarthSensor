@@ -1,7 +1,8 @@
 import Search from "../search"
 import Image from "next/image"
 import Location from 'public/assets/location.png'
-import Map from "../Earth"
+import Map3d from "../Earth";
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function Section1() {
   return (
@@ -35,10 +36,8 @@ export default function Section1() {
         </div>
       </div>
         {/*--- EARTH --*/}
-        <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2'>
-          <div>
-            <Map />
-          </div>
+        <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2 mt-20'>
+            <Map3d />
         </div>
       </div>  
     </section>

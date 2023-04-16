@@ -18,5 +18,8 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  env: {
+    mapbox_key: 'pk.eyJ1IjoiYnJ1bm8yMjMyIiwiYSI6ImNsZ2duazFmODBkZnAzcm8wbzdycnk3bG4ifQ.k4eDylfV8LZBbNwnVuanqw',
+  }
 };
 export default config;

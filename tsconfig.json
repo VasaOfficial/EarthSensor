@@ -17,6 +17,10 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",  
+    "types": [
+      // ...
+      "mapbox-gl"
+    ],
     "paths": {
       "~/*": ["./src/*"]
     }
@@ -27,7 +31,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
-, "src/pages/404.tsx", "src/components/Nav/Box.js", "src/components/Earth/index.jsx"  ],
+    "**/*.mjs",
+    "src/pages/_document.js",
+    "src/pages/404.tsx", "src/components/Nav/Box.js", "src/components/Earth/index.jsx"  ],
   "exclude": ["node_modules"]
 }
