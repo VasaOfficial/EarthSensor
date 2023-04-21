@@ -18,9 +18,5 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  env: {
-    mapbox_key: 'pk.eyJ1IjoiYnJ1bm8yMjMyIiwiYSI6ImNsZ2duazFmODBkZnAzcm8wbzdycnk3bG4ifQ.k4eDylfV8LZBbNwnVuanqw',
-    google_map_api: 'AIzaSyBxvvk_EtqpixTqtt9W0_eqeXMv-aJOXVE',
-  }
 };
 export default config;

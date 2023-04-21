@@ -10,7 +10,7 @@ export default function Map3d() {
       }}
       style={{width: 800, height: 500}}
       mapStyle="mapbox://styles/mapbox/satellite-v9"
-      mapboxAccessToken={process.env.mapbox_key}
+      mapboxAccessToken={process.env.MAPBOX_KEY}
       projection={'globe'}
       attributionControl={false}
       touchPitch={false}

@@ -7,7 +7,7 @@ const Search = () => {
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: process.env.google_map_api ? process.env.google_map_api : '',
+      apiKey: process.env.GOOGLE_MAP_API ? process.env.GOOGLE_MAP_API : '',
       version: 'weekly',
       libraries: ['places'],
     });
