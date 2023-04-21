@@ -14,6 +14,7 @@ export default function Map3d() {
       projection={'globe'}
       attributionControl={false}
       touchPitch={false}
+      logoPosition={'bottom-right'}
     />
   )
 }

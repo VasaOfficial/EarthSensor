@@ -10,7 +10,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.15.1",
     "@nextui-org/react": "^1.0.0-beta.12",
+    "@react-google-maps/api": "^2.18.1",
     "daisyui": "^2.51.5",
     "mapbox-gl": "^2.14.1",
     "next": "^13.2.4",
@@ -18,6 +20,7 @@
     "react": "18.2.0",
     "react-compare-slider": "^2.2.0",
     "react-dom": "18.2.0",
+    "react-google-autocomplete": "^2.7.3",
     "react-map-gl": "^7.0.23",
     "three": "^0.151.3",
     "zod": "^3.21.4"
