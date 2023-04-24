@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { Input } from '@nextui-org/react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { env } from '~/env.mjs';
 
 const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: env.NEXT_PUBLIC_GOOGLE_MAP_API ? env.NEXT_PUBLIC_GOOGLE_MAP_API : '',
+      apiKey: process.env.GOOGLE_MAP_API ? process.env.GOOGLE_MAP_API : '',
       version: 'weekly',
       libraries: ['places'],
     });
