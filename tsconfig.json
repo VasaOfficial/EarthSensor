@@ -16,11 +16,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",  
-    "types": [
-      // ...
-      "mapbox-gl"
-    ],
+    "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
     }
@@ -31,8 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs",
-    "src/pages/_document.js",
-    "src/pages/404.tsx", "src/components/Nav/Box.js", "src/components/Earth/index.jsx"  ],
+    "**/*.mjs"
+  ],
   "exclude": ["node_modules"]
 }

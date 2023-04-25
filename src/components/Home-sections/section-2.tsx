@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Collapse, Grid } from '@nextui-org/react';
+import { Collapse, Grid } from '@nextui-org/react'
 import City from 'public/assets/polluted-city.jpg'
 
 

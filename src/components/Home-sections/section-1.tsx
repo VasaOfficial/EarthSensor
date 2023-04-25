@@ -1,12 +1,12 @@
 import Search from "../search"
 import Image from "next/image"
 import Location from 'public/assets/location.png'
-import Map3d from "../Earth";
-import 'mapbox-gl/dist/mapbox-gl.css';
+import Map3d from "../Earth"
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default function Section1() {
   return (
-    <section id="hero" className='flex items-center justify-center w-full h-[80vh] max-h-[45rem] md:max-h-[80vh] md:h-[80vh] overflow-hidden
+    <section className='flex items-center justify-center w-full h-[80vh] max-h-[45rem] md:max-h-[80vh] md:h-[80vh] overflow-hidden
     bg-gradient-to-b from-[#272D41] via-[#000519] to-[#0e1516]
     after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-3/4 after:bg-gradient-to-t after:from-[#000000] after:to-transparent after:pointer-events-none'>
       <div className='relative w-full max-w-[80rem] h-full flex flex-col md:flex-row '> 

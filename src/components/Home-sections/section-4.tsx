@@ -1,5 +1,5 @@
 import { Table, Card, Text } from "@nextui-org/react"
-import Image from "next/image";
+import Image from "next/image"
 
 interface Row {
   key: string;
