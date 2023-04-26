@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import {  useEffect, useRef } from 'react';
 import { Input } from '@nextui-org/react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { env } from '~/env.mjs';
@@ -31,7 +31,7 @@ const Search = () => {
 
   return (
     <>
-      <Input size="xl" placeholder="Enter Location" type="search" clearable animated ref={inputRef} />
+      <Input size="xl" placeholder="Enter Location" type="search" animated ref={inputRef} />
     </>
   );
 };

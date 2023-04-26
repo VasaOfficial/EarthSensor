@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import Map from 'react-map-gl';
 
@@ -15,7 +17,7 @@ export default function Map3d() {
     const interval = setInterval(() => {
       setViewState((prev) => ({
         ...prev,
-        longitude: prev.longitude + 0.2, // Adjust the rotation speed here
+        longitude: prev.longitude + 0.1, // Adjust the rotation speed here
       }));
     }, 50); // Adjust the interval here
 

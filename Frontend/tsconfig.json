@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "ES2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "checkJs": true,
@@ -27,10 +27,11 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"  
-  ],
+    "**/*.mjs",
+    "Backend/server.ts"
+, "src/components/Earth.jsx"  ],
   "exclude": [
     "node_modules",
-    "**/*.jsx"
+    "**/*.jsx",
   ]
 }
