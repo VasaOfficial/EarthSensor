@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+"use client";
+
 import { useState, useEffect } from 'react';
 import Map from 'react-map-gl';
 
-import { env } from '~/env.mjs';
+import { env } from 'app/env.mjs';
 
-export default function Map3d() {
+const Map3d = () => {
   const [viewState, setViewState] = useState({
     longitude: 20.568829,
     latitude: 11.612623,
@@ -47,3 +49,5 @@ export default function Map3d() {
     />
   );
 }
+
+export default Map3d;

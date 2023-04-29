@@ -1,7 +1,12 @@
 import Head from "next/head"
-import Footer from "~/components/Footer"
-import Navbar from "~/components/Navbar"
-import UpBtn from "~/components/ScrollBtn"
+import Footer from "app/components/Footer"
+import Navbar from "app/components/Navbar"
+import UpBtn from "app/components/ScrollBtn"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Information Page'
+}
 
 export default function Information() {
   return (

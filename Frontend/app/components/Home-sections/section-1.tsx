@@ -1,11 +1,11 @@
-import Search from "../search"
+import SearchBar from "../Search"
 import Image from "next/image"
 import Location from 'public/assets/location.png'
 import Map3d from "../Earth"
-import 'mapbox-gl/dist/mapbox-gl.css'
 
 export default function Section1() {
   return (
+    <>
     <section className='flex items-center justify-center w-full h-[80vh] max-h-[45rem] md:max-h-[80vh] md:h-[80vh] overflow-hidden
     bg-gradient-to-b from-[#272D41] via-[#000519] to-[#0e1516]
     after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-3/4 after:bg-gradient-to-t after:from-[#000000] after:to-transparent after:pointer-events-none'>
@@ -21,8 +21,8 @@ export default function Section1() {
             station to your location.
           </p>
           <div className='flex gap-4 relative'>
-            <div id='search' className='z-50 relative h-12 flex gap-4 flex-shrink w-full sm:max-w-[16rem] bottom-0 right-0'>
-              <Search />
+            <div className='z-50 relative h-12 flex gap-4 flex-shrink w-full sm:max-w-[16rem] bottom-0 right-0'>
+              <SearchBar /> 
             </div>
             <button aria-label='geo location' className='leading-[0] opacity-90 transition-all hover:scale-110'>
                   <Image aria-hidden='true'
@@ -37,9 +37,10 @@ export default function Section1() {
       </div>
         {/*--- EARTH --*/}
         <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2 mt-20'>
-            <Map3d />
+          <Map3d />  
         </div>
       </div>  
     </section>
+    </>
   )
 }

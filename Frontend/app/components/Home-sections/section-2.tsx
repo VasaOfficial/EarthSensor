@@ -1,17 +1,57 @@
-import Image from "next/image"
-import { Collapse, Grid } from '@nextui-org/react'
-import City from 'public/assets/polluted-city.jpg'
+"use client"
 
+import { useState } from 'react';
+import Image from 'next/image';
+import City from 'public/assets/polluted-city.jpg';
 
-export default function Section2() {
+interface AccordionItemProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const AccordionItem = ({ title, children }: AccordionItemProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <section className='flex flex-col items-center bg-neutral-200 relative w-full mx-auto text-lg pb-20 pt-20 overflow-hidden'>
-      <article className='max-w-[60rem] mx-[5vw] my-0 flex flex-col items-center gap-12 z-10'>
-        <div className='flex flex-col gap-4 items-center px-[5vw]'>
-          <h2 className='text-4xl md:text-5xl'>Air pollution</h2>
-          <h3 className='text-2xl md:text-3xl opacity-60'>What is it?</h3>
+    <div className="border-b border-gray-300">
+      <button
+        className="w-full h-20 flex justify-between items-center p-4 "
+        onClick={handleClick}
+      >
+        <h2 className="text-2xl md:text-3xl">{title}</h2>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className={`h-6 w-6 transform ${
+            isOpen ? '-rotate-180' : 'rotate-0'
+          }`}
+        >
+          <path
+            fill="currentColor"
+            d="M16.59 8.59003L12 13.17L7.41 8.59003L6 10L12 16L18 10L16.59 8.59003Z"
+          />
+        </svg>
+      </button>
+      {isOpen && (
+        <div className="p-4">{children}</div>
+      )}
+    </div>
+  );
+};
+
+const Section2 = () => {
+  return (
+    <section className="flex flex-col items-center bg-neutral-200 relative w-full mx-auto text-lg pb-20 pt-20 overflow-hidden">
+      <article className="max-w-[60rem] mx-[5vw] my-0 flex flex-col items-center gap-12 z-10">
+        <div className="flex flex-col gap-4 items-center px-[5vw]">
+          <h2 className="text-4xl md:text-5xl">Air pollution</h2>
+          <h3 className="text-2xl md:text-3xl opacity-60">What is it?</h3>
         </div>
-        <p id='intro1-text' className=' flex flex-col gap-4'>
+        <p id="intro1-text" className=" flex flex-col gap-4">
           <span>
             Air pollution can be created by both manmade and natural sources.
             Natural sources include windblown or kicked-up dust, dirt and sand,
@@ -28,22 +68,20 @@ export default function Section2() {
             for heating, cooking, and energy), and agriculture.
           </span>
         </p>
-        <div className='flex flex-col md:flex-row justify-center items-center md:items-start gap-12'>
-          <figure className='relative h-96 md:w-72 w-[90%] px-[5vw] '>
+        <div className="flex w-full md:flex-row justify-center md:items-start gap-12">
+          <figure className="relative h-96 md:w-72 w-[90%] px-[5vw] ">
             <Image
               src={City}
-              alt=''
-              role='presentation'
+              alt=""
+              role="presentation"
               fill
               priority={true}
-              className='max-w-full max-h-full rounded-3xl'
+              className="max-w-full max-h-full rounded-3xl"
             />
           </figure>
-          <Grid.Container gap={2}>
-      <Grid>
-        <Collapse.Group splitted>
-          <Collapse title="Industries & heating">
-            <p className="text-green-700 font-semibold">
+          <div className="w-full bg-white rounded-lg shadow-lg">
+            <AccordionItem title="Industries &amp; heating">
+              <p className="text-green-700 font-semibold">
                 The combustion of fossil fuels such as coal and oil in
                 industrial processes in power plants, refineries, and factories
                 release a variety of pollutants, the majority of which are
@@ -57,8 +95,8 @@ export default function Section2() {
                 utilities and industrial boilers are responsible for 73.2% of
                 sulfur dioxide pollution.
             </p>
-          </Collapse>
-          <Collapse title="Traffic & mobility">
+            </AccordionItem>
+            <AccordionItem title="Transportation">
             <p className="text-green-700 font-semibold">
                 Petrol and diesel engines of cars, ships, trains and other
                 vehicles emit pollutants such as carbon monoxide (CO), nitrogen
@@ -76,8 +114,8 @@ export default function Section2() {
                 emissions are linked to road transport. In the United States,
                 35.8% of CO and 32.8% of NOx stem from road transport.
             </p>
-          </Collapse>
-          <Collapse title="Agriculture">
+            </AccordionItem>
+            <AccordionItem title="Agriculture">
             <p className="text-green-700 font-semibold">
                 A wide range of nitrogen compounds (NO, NO2, N2), including
                 ammonia (NH3), can be attributed to fertilizer production, farm
@@ -91,9 +129,9 @@ export default function Section2() {
                 livestock and manure management are responsible for 46% of
                 methane emissions. transport.
             </p>
-          </Collapse>
-          <Collapse title="Burning of Fossil Fuels">
-            <p className="text-green-700">
+            </AccordionItem>
+            <AccordionItem title="Burning of Fossil Fuels">
+            <p className="text-green-700 font-semibold">
                 Sulfur dioxide emitted from the combustion of fossil fuels like
                 coal, petroleum for energy in power plants, and other factory
                 combustibles is one the major cause of air pollution. Billions
@@ -119,12 +157,12 @@ export default function Section2() {
                 to 1.4 percent of the burden of disease and 4.2 million deaths
                 every year.
             </p>
-          </Collapse>
-        </Collapse.Group>
-      </Grid>
-    </Grid.Container>
+            </AccordionItem>
+          </div>
         </div>
       </article>
-   </section>
-  )
-}
+    </section>
+  );
+};
+
+export default Section2;

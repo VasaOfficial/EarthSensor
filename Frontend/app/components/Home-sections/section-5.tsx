@@ -1,6 +1,8 @@
-import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider'
+"use client";
 
-export default function Section5() {
+import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'app/clientLib';
+
+const Section5 = () => {
   return (
     <>
       <section className='w-full relative flex flex-col items-center bg-white mx-auto text-lg justify-center'>
@@ -61,3 +63,5 @@ export default function Section5() {
     </>
   )
 }
+
+export default Section5;

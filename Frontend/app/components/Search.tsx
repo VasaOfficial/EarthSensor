@@ -1,9 +1,10 @@
-import {  useEffect, useRef } from 'react';
-import { Input } from '@nextui-org/react';
-import { Loader } from '@googlemaps/js-api-loader';
-import { env } from '~/env.mjs';
+'use client';
 
-const Search = () => {
+import {  useEffect, useRef } from 'react';
+import { Loader } from '@googlemaps/js-api-loader';
+import { env } from 'app/env.mjs';
+
+const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -20,7 +21,6 @@ const Search = () => {
   
         autocomplete.addListener('place_changed', () => {
           const place = autocomplete.getPlace();
-          console.log(place);
         });
       }
     }).catch((err) => {
@@ -29,11 +29,7 @@ const Search = () => {
   
   }, []);  
 
-  return (
-    <>
-      <Input size="xl" placeholder="Enter Location" type="search" animated ref={inputRef} />
-    </>
-  );
+  return <input type="search" placeholder="Enter Location" className="next-input rounded-lg px-4 py-2 text-black" ref={inputRef} />
 };
 
-export default Search;
+export default SearchBar;
