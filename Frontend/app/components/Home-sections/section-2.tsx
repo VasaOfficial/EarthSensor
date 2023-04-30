@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { gsap } from "gsap";
 import Image from 'next/image';
 import City from 'public/assets/polluted-city.jpg';
 
@@ -9,12 +11,49 @@ interface AccordionItemProps {
   children: React.ReactNode;
 }
 
+gsap.registerPlugin(ScrollTrigger);
+
 const AccordionItem = ({ title, children }: AccordionItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+  const handleClick = useCallback(() => {
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  }, []);
+  
+
+  useEffect(() => {
+    const content = contentRef.current;
+
+    if (!content) {
+      return;
+    }
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: content,
+        start: 'top 90%',
+      },
+    });
+
+    if (isOpen) {
+      tl.fromTo(
+        content,
+        { height: 0, opacity: 0 },
+        { height: content.scrollHeight, opacity: 1, duration: 0.5, ease: 'power3' },
+      );
+    } else {
+      tl.fromTo(
+        content,
+        { height: content.scrollHeight, opacity: 1 },
+        { height: 0, opacity: 0, duration: 0.5, ease: 'power3' },
+      );
+    }
+
+    return () => {
+      tl.kill();
+    };
+  }, [isOpen]);
 
   return (
     <div className="border-b border-gray-300">
@@ -26,9 +65,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={`h-6 w-6 transform ${
-            isOpen ? '-rotate-180' : 'rotate-0'
-          }`}
+          className={`h-6 w-6 transform ${isOpen ? '-rotate-180' : 'rotate-0'}`}
         >
           <path
             fill="currentColor"
@@ -36,15 +73,20 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
           />
         </svg>
       </button>
-      {isOpen && (
+      <div
+        className={`overflow-hidden transition-all duration-500 ease-out`}
+        ref={contentRef}
+        style={{ height: isOpen ? 'auto' : 0 }}
+      >
         <div className="p-4">{children}</div>
-      )}
+      </div>
     </div>
   );
 };
 
 const Section2 = () => {
   return (
+    <>
     <section className="flex flex-col items-center bg-neutral-200 relative w-full mx-auto text-lg pb-20 pt-20 overflow-hidden">
       <article className="max-w-[60rem] mx-[5vw] my-0 flex flex-col items-center gap-12 z-10">
         <div className="flex flex-col gap-4 items-center px-[5vw]">
@@ -162,6 +204,7 @@ const Section2 = () => {
         </div>
       </article>
     </section>
+    </>
   );
 };
 

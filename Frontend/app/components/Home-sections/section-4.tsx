@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Text } from 'app/clientLib';
+import { Card, Text } from '@nextui-org/react';
 import Top10Chart from '../Table';
 
 const Section4 = () => {
