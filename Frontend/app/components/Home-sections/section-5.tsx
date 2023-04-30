@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'app/clientLib';
+import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 
 const Section5 = () => {
   return (

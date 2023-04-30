@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, Text } from '@nextui-org/react';
 import Top10Chart from '../Table';
 
 const Section4 = () => {
@@ -28,25 +27,23 @@ const Section4 = () => {
             </div>
             <Top10Chart />
           </div>
-          <Card css={{ maxWidth: '450px', height: '350px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', marginLeft: '2rem' }}>
-            <Card.Header>
-              <Text css={{width: '100%', textAlign: 'center', fontSize: '1.2rem', fontWeight: '700', paddingTop: '1rem'}}>Some countries are hit harder than others</Text>
-            </Card.Header>
-            <Card.Body>
-            <Text css={{fontWeight: '500', textAlign: 'center'}}>
-              The{' '}
-              <abbr className='decoration-black/30 underline-offset-4' title='World Health Organization'>
-                WHO
-              </abbr>{' '}
-                target for air pollution is 0-10 µg/m³. IQ Air, which measures
-                pollution in 109 countries around the globe, considers
-                measurements above 35.5 to be unhealthy for sensitive groups,
-                levels between 55.5 and 150.4 to be unhealthy for all, and
-                anything higher is either very unhealthy (150.5-250.4) or
-                hazardous (250.5 or higher).
-            </Text>
-            </Card.Body>
-          </Card>
+          <div className= 'flex flex-col justify-center items-center text-center max-w-md h-350 ml-8 bg-white shadow rounded-md p-7'>
+            <h1 className='w-full text-center text-lg font-bold pb-3'>
+              Some countries are hit harder than others
+            </h1>
+              <p className="font-medium text-center">
+                The{' '}
+                <abbr className='decoration-black/30 underline-offset-4' title='World Health Organization'>
+                  WHO
+                </abbr>{' '}
+                  target for air pollution is 0-10 µg/m³. IQ Air, which measures
+                  pollution in 109 countries around the globe, considers
+                  measurements above 35.5 to be unhealthy for sensitive groups,
+                  levels between 55.5 and 150.4 to be unhealthy for all, and
+                  anything higher is either very unhealthy (150.5-250.4) or
+                  hazardous (250.5 or higher).
+              </p>
+          </div>
         </article>
       </section>
   )
