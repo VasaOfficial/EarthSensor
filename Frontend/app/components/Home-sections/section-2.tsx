@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import { gsap } from "gsap";
+import { useState, useRef, useEffect } from 'react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import autoAnimate from '@formkit/auto-animate'
 import Image from 'next/image';
 import City from 'public/assets/polluted-city.jpg';
 
@@ -11,61 +11,27 @@ interface AccordionItemProps {
   children: React.ReactNode;
 }
 
-gsap.registerPlugin(ScrollTrigger);
-
 const AccordionItem = ({ title, children }: AccordionItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const handleClick = useCallback(() => {
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-  }, []);
-  
+  const [show, setShow] = useState(false);
+  const parent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const content = contentRef.current;
+    parent.current && autoAnimate(parent.current)
+  }, [parent])
 
-    if (!content) {
-      return;
-    }
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: content,
-        start: 'top 90%',
-      },
-    });
-
-    if (isOpen) {
-      tl.fromTo(
-        content,
-        { height: 0, opacity: 0 },
-        { height: content.scrollHeight, opacity: 1, duration: 0.5, ease: 'power3' },
-      );
-    } else {
-      tl.fromTo(
-        content,
-        { height: content.scrollHeight, opacity: 1 },
-        { height: 0, opacity: 0, duration: 0.5, ease: 'power3' },
-      );
-    }
-
-    return () => {
-      tl.kill();
-    };
-  }, [isOpen]);
+  const reveal = () => setShow(!show)
 
   return (
-    <div className="border-b border-gray-300">
+    <div className="border-b border-gray-300" ref={parent}>
       <button
         className="w-full h-20 flex justify-between items-center p-4 "
-        onClick={handleClick}
+        onClick={reveal}
       >
         <h2 className="text-2xl md:text-3xl">{title}</h2>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={`h-6 w-6 transform ${isOpen ? '-rotate-180' : 'rotate-0'}`}
+          className={`h-6 w-6 transform ${show ? '-rotate-180' : 'rotate-0'}`}
         >
           <path
             fill="currentColor"
@@ -73,13 +39,9 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
           />
         </svg>
       </button>
-      <div
-        className={`overflow-hidden transition-all duration-500 ease-out`}
-        ref={contentRef}
-        style={{ height: isOpen ? 'auto' : 0 }}
-      >
+     { show && <div className="overflow-hidden transition-all duration-500 ease-out">
         <div className="p-4">{children}</div>
-      </div>
+      </div> }
     </div>
   );
 };
