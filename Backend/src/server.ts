@@ -1,26 +1,23 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import axios from 'axios';
-
+const rateLimit = require('express-rate-limit')
 dotenv.config();
+
+const PORT = process.env.PORT || 5000
 
 const app: express.Application = express();
 
 app.use(cors());
 
-app.get('/', async (req, res) => {
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  const query = req.query.q;
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 50 // 50 requests per windowMs
+});
+app.use(limiter)
+app.set('trust proxy', 1)
 
-  try {
-    const response =await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${apiKey}&input=${query}`);
-    const predictions = response.data.predictions;
-    res.json(predictions);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'An error occurred while fetching data from the Google Places API'});
-  }
-})
+// Routes 
+app.use('/api', require('./routes/googlePlaces'))
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+app.listen(PORT, () => console.log('Server is running on port 5000'));
