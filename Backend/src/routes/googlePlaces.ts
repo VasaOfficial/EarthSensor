@@ -1,25 +1,20 @@
-import express from 'express';
 import axios from 'axios';
-import apicache from 'apicache'
-const router = express.Router()
+import { router, publicProcedure } from '../trpc';
 
-// Env vars
-const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+export const googlePlacesRouter = router({
+  autocomplete: publicProcedure.query(async ({ input }) => {
+    const apiKey = process.env.GOOGLE_PLACES_API_KEY;
 
-// init cache
-const cache = apicache.middleware;
+    try {
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${apiKey}&input=${input}`);
+      console.log(response.data);
+      const predictions = response.data.predictions;
+      return predictions;
+    } catch (error) {
+      console.error(error);
+      throw new Error('An error occurred while fetching data from the Google Places API');
+    }
+  }),
+});
 
-router.get('/', cache('60 minutes'), async (req, res) => {
-  const query = req.query.q;
-
-  try {
-    const response = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${apiKey}&input=${query}`);
-    const predictions = response.data.predictions;
-    res.json(predictions);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'An error occurred while fetching data from the Google Places API'});
-  }
-})
-
-module.exports = router
+export type AppRouter = typeof googlePlacesRouter;
