@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
 import autoAnimate from '@formkit/auto-animate'
 import Image from 'next/image';
 import City from 'public/assets/polluted-city.jpg';
@@ -83,7 +82,7 @@ const Section2 = () => {
               className="max-w-full max-h-full rounded-3xl"
             />
           </figure>
-          <div className="w-full bg-white rounded-lg shadow-lg">
+          <div className="w-full max-w-full bg-white rounded-lg shadow-lg">
             <AccordionItem title="Industries &amp; heating">
               <p className="text-green-700 font-semibold">
                 The combustion of fossil fuels such as coal and oil in
