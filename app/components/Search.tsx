@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { useState, useEffect, useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -29,7 +29,7 @@ const SearchBar = () => {
   }, [text]);
 
   useEffect(() => {
-   void handleFetchPredictions();
+    void handleFetchPredictions();
   }, [handleFetchPredictions]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +38,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className="relative">
       <input
         aria-label="enter the name of your city"
         type="text"
@@ -49,9 +49,16 @@ const SearchBar = () => {
       />
 
       {predictions.length > 0 && (
-        <ul>
-          {predictions.map((prediction) => (
-            <li key={prediction}>{prediction}</li>
+        <ul className="absolute w-full mt-1 bg-white rounded-lg">
+          {predictions.map((prediction, index) => (
+            <li
+              key={prediction}
+              className={`p-2 ${
+                index !== predictions.length - 1 ? 'border-b border-gray-300' : ''
+              } text-black text-sm font-semibold`}
+            >
+              {prediction}
+            </li>
           ))}
         </ul>
       )}
