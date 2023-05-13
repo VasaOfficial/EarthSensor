@@ -42,7 +42,7 @@
     "Backend/server.ts",
     "src/components/Earth.jsx",
     ".next/types/**/*.ts"
-, "app/clientLib.ts"  ],
+, "app/clientLib.ts", "app/components/Earth.jsx"  ],
   "exclude": [
     "node_modules",
     "**/*.jsx"
