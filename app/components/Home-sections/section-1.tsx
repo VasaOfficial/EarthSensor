@@ -1,6 +1,5 @@
 import SearchBar from "../Search"
-import Image from "next/image"
-import Location from 'public/assets/location.png'
+import GeoBtn from "../GeoBtn"
 import Map3d from "../Earth"
 
 export default function Section1() {
@@ -24,14 +23,7 @@ export default function Section1() {
             <div className='z-50 relative h-12 flex gap-4 flex-shrink w-full sm:max-w-[16rem] bottom-0 right-0'>
               <SearchBar /> 
             </div>
-            <button aria-label='geo location' className='transition-all hover:scale-110'>
-              <Image aria-hidden='true'
-                src={Location}
-                alt='geo location'
-                width={50}
-                height={50}
-              />
-            </button>
+            <GeoBtn />
           </div>
         </div>
       </div>
