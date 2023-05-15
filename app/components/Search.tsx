@@ -6,20 +6,21 @@ import { z } from 'zod';
 
 const dataSchema = z.object({
   descriptions: z.array(z.string()),
-  // Add more properties to the schema if needed
 });
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [predictions, setPredictions] = useState<string[]>([]);
   const [text] = useDebounce(inputValue, 500);
+  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
+  const [highlightedPrediction, setHighlightedPrediction] = useState<string>('');
+
 
   const handleFetchPredictions = useCallback(async () => {
     if (text.trim().length > 0) {
       const response = await fetch(`/api/autocomplete?query=${text.trim()}`);
       const data = await response.json() as { descriptions: string[] };
 
-      // Validate the response using Zod
       const validatedData = dataSchema.parse(data);
 
       setPredictions(validatedData.descriptions);
@@ -35,17 +36,49 @@ const SearchBar = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setInputValue(value);
+    setHighlightedIndex(-1);
+    setHighlightedPrediction('');
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : predictions.length - 1));
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setHighlightedIndex((prevIndex) => (prevIndex < predictions.length - 1 ? prevIndex + 1 : 0));
+    } else if (event.key === 'Enter' && highlightedIndex !== -1) {
+      event.preventDefault();
+      const selectedPrediction = predictions[highlightedIndex];
+      if (selectedPrediction) {
+        setInputValue(selectedPrediction);
+        setPredictions([]);
+      }
+    }
+  };  
+
+  useEffect(() => {
+    if (highlightedIndex !== -1) {
+      const selectedPrediction = predictions[highlightedIndex];
+      if (selectedPrediction) {
+        setHighlightedPrediction(selectedPrediction);
+      }
+    } else {
+      setHighlightedPrediction('');
+    }
+  }, [highlightedIndex, predictions]);
+  
   return (
     <div className="relative">
       <input
         aria-label="enter the name of your city"
-        type="text"
+        type="search"
         placeholder="Enter Location"
+        required
         className="rounded-lg px-4 py-2 text-black"
         value={inputValue}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
 
       {predictions.length > 0 && (
@@ -55,7 +88,7 @@ const SearchBar = () => {
               key={prediction}
               className={`p-2 ${
                 index !== predictions.length - 1 ? 'border-b border-gray-300' : ''
-              } text-black text-sm font-semibold`}
+              } text-black text-sm font-semibold ${prediction === highlightedPrediction ? 'bg-gray-200 rounded-lg' : ''}`} 
             >
               {prediction}
             </li>
