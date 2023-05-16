@@ -7,6 +7,7 @@ import { z } from "zod";
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   GOOGLE_MAP_API: z.string(),
+  AQI_API: z.string(),
 });
 
 /**
@@ -31,6 +32,8 @@ const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_MAPBOX_KEY: process.env.NEXT_PUBLIC_MAPBOX_KEY,
   GOOGLE_MAP_API: process.env.GOOGLE_MAP_API,
+  AQI_API: process.env.AQI_API,
+  
 };
 
 // Don't touch the part below
