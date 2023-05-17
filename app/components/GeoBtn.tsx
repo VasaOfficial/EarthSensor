@@ -14,14 +14,17 @@ const GeoBtn: React.FC<GeoBtnProps> = ({ onLocationReceived }) => {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-          console.log('Latitude:', latitude);
-          console.log('Longitude:', longitude);
           if (onLocationReceived) {
             onLocationReceived(latitude, longitude);
           }
+
+          fetch(`/api/geolocation?lat=${latitude}&lng=${longitude}`)
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error('Error getting location:', error));
         },
         (error) => {
-          console.error('Error getting location:', error);
+          console.error('Error getting location', error);
         }
       );
     } else {

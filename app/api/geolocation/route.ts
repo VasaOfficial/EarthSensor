@@ -12,14 +12,20 @@ interface DataItem {
   };
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const lat = url.searchParams.get('lat');
+  const lng = url.searchParams.get('lng');
   const apiKey = env.AQI_API;
-  const apiUrl = `https://api.waqi.info/v2/map/bounds?latlng=-85,-180,85,180&networks=official&token=${apiKey}`
+
+  if (lat === null || lng === null) {
+    return NextResponse.error();
+  }
+
+  const apiUrl = `https://api.waqi.info/feed/geo:${lat};${lng}/?token=${apiKey}`;
 
   const res = await fetch(apiUrl);
+  const data = await res.json() as DataItem;
 
-  const { data } = await res.json() as { data: DataItem[] };
-
-  // Return the fetched data as the response
-  return NextResponse.json({ data });
+  return NextResponse.json(data);
 }

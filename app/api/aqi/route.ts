@@ -20,6 +20,5 @@ export async function GET() {
 
   const { data } = await res.json() as { data: DataItem[] };
 
-  // Return the fetched data as the response
   return NextResponse.json({ data });
 }
