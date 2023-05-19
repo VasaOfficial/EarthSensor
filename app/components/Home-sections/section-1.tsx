@@ -1,6 +1,5 @@
 import SearchBar from "../Search"
 import GeoBtn from "../GeoBtn"
-import Map3d from "../Earth"
 
 export default function Section1() {
   return (
@@ -28,9 +27,20 @@ export default function Section1() {
         </div>
       </div>
         {/*--- EARTH --*/}
-        <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2 mt-20'>
-          <Map3d />  
-        </div>
+        <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2'>
+              <div
+                id='tooltip'
+                className=' hidden pointer-events-none z-10 fixed flex-col gap-2 top-0 left-0 w-60 md:w-80 p-4 text-black bg-emerald-400 rounded-2xl border-solid border-black shadow-lg leading-4 invisible sm:visible
+
+              before:block before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2 before:-right-[8px] before:w-0 before:h-0 before:pointer-events-none before:border-y-8 before:border-l-8 before:border-solid before:border-y-transparent before:border-l-emerald-400 before:shadow-lg
+              '>
+                <p id='tooltip-name'></p>
+                <p id='tooltip-aqi' className='font-bold'></p>
+                <time id='tooltip-time' className='text-sm'></time>
+              </div>
+
+             {/* <Scene className='w-full' /> */}
+            </div>
       </div>  
     </section>
     </>
