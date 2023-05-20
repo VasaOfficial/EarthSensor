@@ -1,7 +1,35 @@
+'use client'
+import { useState, useEffect } from "react"
+
 import SearchBar from "../Search"
 import GeoBtn from "../GeoBtn"
+import { type AqiData } from 'types'
 
 export default function Section1() {
+  const [data, setData] = useState<AqiData[]>()
+
+   // Sort data by AQI level
+   const sortData = (data: AqiData[]) => {
+    const sortedData = data
+      .filter((e) => !Number.isNaN(Number(e.aqi)))
+      .sort((a, b) => Number(b.aqi) - Number(a.aqi))
+
+    setData(sortedData)
+    // fetchTopTen(sortedData)
+  }
+
+  // Aqi fetch
+  useEffect(() => {
+    fetch('http://localhost:3000/api/aqi')
+      .then((res) => res.json())
+      .then((res: { data: AqiData[]}) => {
+        sortData(res.data)
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+  }, []);
+
   return (
     <>
     <section className='flex items-center justify-center w-full h-[80vh] max-h-[45rem] md:max-h-[80vh] md:h-[80vh] overflow-hidden
@@ -31,15 +59,11 @@ export default function Section1() {
               <div
                 id='tooltip'
                 className=' hidden pointer-events-none z-10 fixed flex-col gap-2 top-0 left-0 w-60 md:w-80 p-4 text-black bg-emerald-400 rounded-2xl border-solid border-black shadow-lg leading-4 invisible sm:visible
-
-              before:block before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2 before:-right-[8px] before:w-0 before:h-0 before:pointer-events-none before:border-y-8 before:border-l-8 before:border-solid before:border-y-transparent before:border-l-emerald-400 before:shadow-lg
-              '>
+                before:block before:content-[""] before:absolute before:top-1/2 before:-translate-y-1/2 before:-right-[8px] before:w-0 before:h-0 before:pointer-events-none before:border-y-8 before:border-l-8 before:border-solid before:border-y-transparent before:border-l-emerald-400 before:shadow-lg'>
                 <p id='tooltip-name'></p>
                 <p id='tooltip-aqi' className='font-bold'></p>
                 <time id='tooltip-time' className='text-sm'></time>
               </div>
-
-             {/* <Scene className='w-full' /> */}
             </div>
       </div>  
     </section>

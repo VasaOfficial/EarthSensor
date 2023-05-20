@@ -39,12 +39,14 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "Backend/server.ts",
-    "src/components/Earth.jsx",
-    ".next/types/**/*.ts"
-, "app/clientLib.ts", "app/components/Earth.jsx", "app/components/Scene.jsx"  ],
+    ".next/types/**/*.ts",
+    "app/clientLib.ts",
+    "app/components/Earth.tsx",
+    "app/components/Scene.jsx",
+    "utils/Prism.tsx"
+  ],
   "exclude": [
     "node_modules",
-    "**/*.jsx"
+    "**/*.jsx",
   ]
 }
