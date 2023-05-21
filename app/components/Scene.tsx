@@ -5,6 +5,7 @@ import { GizmoHelper } from '@react-three/drei'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import { type AqiData } from 'types'
+import Earth from './Earth'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -82,6 +83,7 @@ const Scene: React.FC<{ data: AqiData[] }> = ({ data }) => {
           enableZoom={false}
         />
         <Suspense fallback={null}>
+          <Earth data={data} />
         </Suspense>
       </Canvas>
     </div>
