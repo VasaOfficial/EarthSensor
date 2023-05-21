@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 
 import SearchBar from "../Search"
 import GeoBtn from "../GeoBtn"
+import Scene from "../Scene"
 import { type AqiData } from 'types'
 
 export default function Section1() {
@@ -55,6 +56,7 @@ export default function Section1() {
         </div>
       </div>
         {/*--- EARTH --*/}
+        {data && (
         <div className='absolute md:relative bottom-0 md:top-0 left-0 h-[110%] md:h-full  md:min-h-full w-full md:w-1/2'>
               <div
                 id='tooltip'
@@ -64,7 +66,9 @@ export default function Section1() {
                 <p id='tooltip-aqi' className='font-bold'></p>
                 <time id='tooltip-time' className='text-sm'></time>
               </div>
+             <Scene data={data} />
             </div>
+             )}
       </div>  
     </section>
     </>
