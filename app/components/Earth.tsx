@@ -3,6 +3,7 @@ import { useFrame, useLoader } from '@react-three/fiber'
 import { TextureLoader, type Group } from 'three'
 import * as THREE from 'three'
 import { type AqiData } from 'types'
+import Prism from 'utils/Prism'
 
 import globeVertexShader from 'shaders/globe/vertex.glsl'
 import globeFragmentShader from '/shaders/globe/fragment.glsl'
@@ -103,6 +104,27 @@ const Earth: React.FC<{ data: AqiData[] }> = ({ data }) => {
       }}>
       <Globe radius={radius} />
       <Atmosphere radius={radius} />
+      {
+        // Map through the data array to create prism
+        data &&
+          data.map(
+            (el, i) =>
+              el.aqi > 50 && (
+                <Prism
+                  radius={radius}
+                  key={`${el.station.name}${i}`}
+                  lat={el.lat}
+                  long={el.lon}
+                  aqi={el.aqi}
+                  info={{
+                    name: el.station.name,
+                    aqi: el.aqi,
+                    time: el.station.time,
+                  }}
+                />
+              )
+          )
+      }
     </group>
   )
 }

@@ -5,8 +5,9 @@ declare module '*.glsl' {
 
 export type AqiData = {
   lat: number;
-  long: number;
+  lon: number;
   aqi: number;
   info: { name: string; aqi: number; time: Date };
   radius: number;
+  station: { name: string; time: Date}
 };
