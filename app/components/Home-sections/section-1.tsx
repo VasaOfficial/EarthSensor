@@ -1,14 +1,14 @@
 'use client'
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import SearchBar from "../Search"
 import GeoBtn from "../GeoBtn"
 import Scene from "../Scene"
+import getAqiData from "lib/getAqiData"
 import { type AqiData } from 'types'
 
-export default function Section1() {
+export default async function Section1() {
   const [data, setData] = useState<AqiData[]>()
-
    // Sort data by AQI level
    const sortData = (data: AqiData[]) => {
     const sortedData = data
@@ -16,20 +16,12 @@ export default function Section1() {
       .sort((a, b) => Number(b.aqi) - Number(a.aqi))
 
     setData(sortedData)
-    // fetchTopTen(sortedData)
   }
 
-  // Aqi fetch
-  useEffect(() => {
-    fetch('http://localhost:3000/api/aqi')
-      .then((res) => res.json())
-      .then((res: { data: AqiData[]}) => {
-        sortData(res.data)
-      })
-      .catch((error) => {
-        console.error(error)
-      });
-  }, []);
+  const aqiData: Promise<AqiData[]> = getAqiData();
+
+  const aqi = await aqiData;
+  sortData(aqi);
 
   return (
     <>
