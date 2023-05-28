@@ -1,27 +1,32 @@
 'use client'
-import { useState } from "react"
-
+import { useState, useEffect } from "react"
 import SearchBar from "../Search"
 import GeoBtn from "../GeoBtn"
 import Scene from "../Scene"
 import getAqiData from "lib/getAqiData"
 import { type AqiData } from 'types'
 
-export default async function Section1() {
+export default function Section1() {
   const [data, setData] = useState<AqiData[]>()
-   // Sort data by AQI level
-   const sortData = (data: AqiData[]) => {
-    const sortedData = data
-      .filter((e) => !Number.isNaN(Number(e.aqi)))
-      .sort((a, b) => Number(b.aqi) - Number(a.aqi))
-
-    setData(sortedData)
-  }
-
-  const aqiData: Promise<AqiData[]> = getAqiData();
-
-  const aqi = await aqiData;
-  sortData(aqi);
+     // Sort data by AQI level
+     const sortData = (data: AqiData[]) => {
+      const sortedData = data
+        .filter((e) => !Number.isNaN(Number(e.aqi)))
+        .sort((a, b) => Number(b.aqi) - Number(a.aqi))
+  
+      setData(sortedData)
+    }
+  
+    // Aqi fetch
+    useEffect(() => {
+      getAqiData()
+        .then((res: { data: AqiData[]}) => {
+          sortData(res.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, []);
 
   return (
     <>

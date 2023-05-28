@@ -14,7 +14,7 @@ const SearchBar = () => {
   const [text] = useDebounce(inputValue, 500);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [highlightedPrediction, setHighlightedPrediction] = useState<string>('');
-
+  const [hasText, setHasText] = useState<boolean>(false);
 
   const handleFetchPredictions = useCallback(async () => {
     if (text.trim().length > 0) {
@@ -38,6 +38,7 @@ const SearchBar = () => {
     setInputValue(value);
     setHighlightedIndex(-1);
     setHighlightedPrediction('');
+    setHasText(value.trim().length > 0);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -57,6 +58,11 @@ const SearchBar = () => {
     }
   };  
 
+  const handleClearInput = () => {
+    setInputValue('');
+    setPredictions([]);
+  };  
+
   useEffect(() => {
     if (highlightedIndex !== -1) {
       const selectedPrediction = predictions[highlightedIndex];
@@ -72,10 +78,10 @@ const SearchBar = () => {
     <div className="relative">
       <input
         aria-label="enter the name of your city"
-        type="search"
+        type="text"
         placeholder="Enter Location"
         required
-        className="rounded-lg px-4 py-2 text-black"
+        className="rounded-lg px-4 py-2 text-black caret-black"
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
@@ -94,6 +100,9 @@ const SearchBar = () => {
             </li>
           ))}
         </ul>
+      )}
+      {hasText && (
+      <button className='absolute right-2 pb-2 w-10 text-2xl h-full text-black' onClick={handleClearInput}>×</button>
       )}
     </div>
   );

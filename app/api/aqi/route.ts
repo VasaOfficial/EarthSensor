@@ -16,7 +16,7 @@ export async function GET() {
   const apiKey = env.AQI_API;
   const apiUrl = `https://api.waqi.info/v2/map/bounds?latlng=-85,-180,85,180&networks=official&token=${apiKey}`
 
-  const res = await fetch(apiUrl, { cache: 'no-store' });
+  const res = await fetch(apiUrl, { next: { revalidate: 7200 } });
 
   const { data } = await res.json() as { data: DataItem[] };
 
