@@ -75,10 +75,9 @@ const Section2 = () => {
           <figure className="relative h-96 md:w-72 w-[90%] px-[5vw] ">
             <Image
               src={City}
-              alt=""
-              role="presentation"
+              alt="Polluted City"
+              quality={35}
               fill
-              priority={true}
               className="max-w-full max-h-full rounded-3xl"
             />
           </figure>

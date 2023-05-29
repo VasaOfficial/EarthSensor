@@ -61,6 +61,7 @@ const SearchBar = () => {
   const handleClearInput = () => {
     setInputValue('');
     setPredictions([]);
+    setHasText(false);
   };  
 
   useEffect(() => {
