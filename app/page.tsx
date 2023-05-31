@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "./components/Footer";
 import Section1 from "./components/Home-sections/section-1";
 import Section2 from "./components/Home-sections/section-2";
@@ -20,6 +20,7 @@ export default function Home() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -28,7 +29,7 @@ export default function Home() {
   return (
     <>
       <main className="flex flex-col">
-        {showNavbar && <Navbar />}
+        <Navbar className={showNavbar ? "navbar navbar-show" : "navbar"} />
         <Section1 /> 
         <Section2 />  
         <Section3 />  

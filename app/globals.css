@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar {
+    transition: transform 1s ease;
+    transform: translateY(-100%);
+  }
+  
+  .navbar-show {
+    transform: translateY(0);
+  }
+  
