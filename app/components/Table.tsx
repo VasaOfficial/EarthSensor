@@ -124,6 +124,7 @@ const Top10Chart = () => {
                 width={34}
                 height={22}
                 className="mr-2"
+                style={{width: "auto", height: "auto"}}
                 />
               {item.country}
               </div>

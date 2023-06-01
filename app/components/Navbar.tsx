@@ -10,9 +10,9 @@ interface NavbarProps {
 export default function Navbar({ className }: NavbarProps) {
   return (
     <nav className={`navbar fixed w-full top-0 z-50 bg-[#020617] ${className}`}>
-      <div className="flex max-w-[70] justify-between items-center py-4 w-full mx-auto my-0 px-[5vw]">
-        <Link href="/" className="btn btn-ghost normal-case text-xl ">
-          <Image src={Logo} alt="Logo" width="150" height="150"></Image>
+      <div className="flex max-w-[70rem] justify-between items-center py-4 mx-auto my-0 px-[5vw]">
+        <Link href="/" as={'image'} className="btn btn-ghost normal-case text-xl ">
+          <Image src={Logo} alt="Logo" width={150} height={150} quality={40} style={{width: "150", height: "150"}}></Image>
         </Link>
         <SearchBar />
       </div>

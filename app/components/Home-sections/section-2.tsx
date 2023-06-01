@@ -79,6 +79,7 @@ const Section2 = () => {
               quality={35}
               fill
               className="max-w-full max-h-full rounded-3xl"
+              sizes="(max-width: 400px) 100vw, (max-width: 400px) 50vw, 33vw"
             />
           </figure>
           <div className="w-full max-w-full bg-white rounded-lg shadow-lg">

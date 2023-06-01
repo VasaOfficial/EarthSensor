@@ -25,8 +25,8 @@ const Scene: React.FC<{ data: AqiData[] }> = ({ data }) => {
     }
   }
 
+  // disables globe animation when past the first section
   useEffect(() => {
-    // disables globe animation when past the first section
     ScrollTrigger.create({
       trigger: '#canvas-container',
       start: 'bottom top+=20%',
@@ -44,16 +44,6 @@ const Scene: React.FC<{ data: AqiData[] }> = ({ data }) => {
       duration: 3,
       opacity: '1',
       ease: 'power3.out',
-    })
-
-    gsap.set('#preloader', {
-      opacity: '0',
-      onComplete: () => {
-        const preloader = document.querySelector('#preloader') as HTMLElement
-        if (preloader) {
-          preloader.style.pointerEvents = 'none'
-        }
-      },
     })
 
     addEventListener('mousemove', onMouseMove)
