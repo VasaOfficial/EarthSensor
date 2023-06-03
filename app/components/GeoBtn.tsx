@@ -2,12 +2,15 @@
 
 import Image from "next/image"
 import Location from 'public/assets/location.png'
+import { useRouter } from "next/navigation"
 
 interface GeoBtnProps {
   onLocationReceived?: (latitude: number, longitude: number) => void;
 }
 
 const GeoBtn: React.FC<GeoBtnProps> = ({ onLocationReceived }) => {
+  const router = useRouter();
+  
   const handleClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -18,10 +21,7 @@ const GeoBtn: React.FC<GeoBtnProps> = ({ onLocationReceived }) => {
             onLocationReceived(latitude, longitude);
           }
 
-          fetch(`/api/geolocation?lat=${latitude}&lng=${longitude}`)
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((error) => console.error('Error getting location:', error));
+          router.push(`/information?lat=${latitude}&lng=${longitude}`);
         },
         (error) => {
           console.error('Error getting location', error);
@@ -42,6 +42,7 @@ const GeoBtn: React.FC<GeoBtnProps> = ({ onLocationReceived }) => {
         aria-hidden="true"
         src={Location}
         alt="geo location"
+        quality={30}
         width={50}
         height={50}
       />

@@ -1,14 +1,44 @@
+'use client'
+
 import Footer from "app/components/Footer"
 import Navbar from "app/components/Navbar"
 import UpBtn from "app/components/ScrollBtn"
 import type { Metadata } from "next"
-import Image from "next/image"
+import { type AqiData } from "types"
 
 export const metadata: Metadata = {
   title: 'Information Page'
 }
 
 export default function Information() {
+  const getURLParameter = (sParam: string) => {
+    const sPageURL = window.location.search.substring(1)
+    const sURLVariables = sPageURL.split('&')
+    for (let i = 0; i < sURLVariables.length; i++) {
+      const sParameterName = sURLVariables[i]?.split('=') ?? [];
+      if (sParameterName[0] == sParam) {
+        return sParameterName[1]
+      }
+    }
+  }
+
+  const fetchAqiData = async () => {
+    const lat = getURLParameter('lat') ?? '';
+    const lng = getURLParameter('lng') ?? '';
+    try {
+      const res = await fetch(`http://localhost:3000/api/geolocation?lat=${lat}&lng=${lng}`);
+      if (res.ok) {
+        const data = await res.json() as AqiData;
+        // Handle the response data
+        console.log(data);
+      } else {
+        throw new Error('Failed to fetch AQI data');
+      }
+    } catch (error) {
+      console.error('Failed to fetch AQI data:', error);
+    }
+  };
+  
   return (
     <>
       <Navbar className="navbar"/>

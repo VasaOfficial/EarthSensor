@@ -3,18 +3,23 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation'
 
 const dataSchema = z.object({
   descriptions: z.array(z.string()),
 });
 
 const SearchBar = () => {
+
+  const router = useRouter()
+  
   const [inputValue, setInputValue] = useState<string>('');
   const [predictions, setPredictions] = useState<string[]>([]);
   const [text] = useDebounce(inputValue, 500);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [highlightedPrediction, setHighlightedPrediction] = useState<string>('');
   const [hasText, setHasText] = useState<boolean>(false);
+  const [searchLink, setSearchLink] = useState('/search?city=')
 
   const handleFetchPredictions = useCallback(async () => {
     if (text.trim().length > 0) {
@@ -44,10 +49,14 @@ const SearchBar = () => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      setHighlightedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : predictions.length - 1));
+      setHighlightedIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : predictions.length - 1
+      );
     } else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      setHighlightedIndex((prevIndex) => (prevIndex < predictions.length - 1 ? prevIndex + 1 : 0));
+      setHighlightedIndex((prevIndex) =>
+        prevIndex < predictions.length - 1 ? prevIndex + 1 : 0
+      );
     } else if (event.key === 'Enter' && highlightedIndex !== -1) {
       event.preventDefault();
       const selectedPrediction = predictions[highlightedIndex];
@@ -56,8 +65,12 @@ const SearchBar = () => {
         setPredictions([]);
       }
     }
-  };  
-
+    if (event.key === 'Enter' && searchLink.replace(/ /g, '') !== '/search?city=') {
+      event.preventDefault();
+      router.push(searchLink);
+    }
+  };
+  
   const handleClearInput = () => {
     setInputValue('');
     setPredictions([]);
