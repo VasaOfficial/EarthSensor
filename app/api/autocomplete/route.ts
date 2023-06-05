@@ -19,7 +19,7 @@ export async function GET(request: Request) {
     throw new Error('query parameter is missing');
   }
   
-  const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&key=${apiKey}`;
+  const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(query)}&types=(cities)&key=${apiKey}`;
 
   const response = await fetch(apiUrl);
   

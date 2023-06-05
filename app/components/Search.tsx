@@ -1,29 +1,54 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation'
 import { useDebounce } from 'use-debounce';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation'
+import { type AqiData } from 'types';
 
 const dataSchema = z.object({
   descriptions: z.array(z.string()),
 });
 
-const SearchBar = () => {
+export const geocodingResponseSchema = z.object({
+  results: z.array(
+    z.object({
+      geometry: z.object({
+        location: z.object({
+          lat: z.number(),
+          lng: z.number(),
+        }),
+      }),
+    })
+  ),
+});
 
+type geocodingSchema = typeof geocodingResponseSchema;
+
+const SearchBar = () => {
   const router = useRouter()
+  const AUTOCOMPLETE_API_URL = '/api/autocomplete?query=';
+  const GEOCODING_API_URL = '/api/geocode?city=';
   
   const [inputValue, setInputValue] = useState<string>('');
   const [predictions, setPredictions] = useState<string[]>([]);
-  const [text] = useDebounce(inputValue, 500);
+  const [debouncedText] = useDebounce(inputValue, 500);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [highlightedPrediction, setHighlightedPrediction] = useState<string>('');
   const [hasText, setHasText] = useState<boolean>(false);
-  const [searchLink, setSearchLink] = useState('/search?city=')
+  const [searchLink, setSearchLink] = useState('/information?city=')
 
-  const handleFetchPredictions = useCallback(async () => {
-    if (text.trim().length > 0) {
-      const response = await fetch(`/api/autocomplete?query=${text.trim()}`);
+  const handlePredictionMouseEnter = (prediction: string) => {
+    setHighlightedPrediction(prediction);
+  };
+  
+  const handlePredictionMouseLeave = () => {
+    setHighlightedPrediction('');
+  };
+
+  const fetchPredictions = useCallback(async () => {
+    if (debouncedText.trim().length > 0) {
+      const response = await fetch(`${AUTOCOMPLETE_API_URL}${debouncedText.trim()}`);
       const data = await response.json() as { descriptions: string[] };
 
       const validatedData = dataSchema.parse(data);
@@ -32,14 +57,14 @@ const SearchBar = () => {
     } else {
       setPredictions([]);
     }
-  }, [text]);
+  }, [debouncedText]);
 
   useEffect(() => {
-    void handleFetchPredictions();
-  }, [handleFetchPredictions]);
+    void fetchPredictions();
+  }, [fetchPredictions]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const { value } = event.target;
     setInputValue(value);
     setHighlightedIndex(-1);
     setHighlightedPrediction('');
@@ -63,11 +88,56 @@ const SearchBar = () => {
       if (selectedPrediction) {
         setInputValue(selectedPrediction);
         setPredictions([]);
+  
+        fetchAqiData(selectedPrediction).catch((error) => {
+          console.error(error);
+        });
       }
     }
-    if (event.key === 'Enter' && searchLink.replace(/ /g, '') !== '/search?city=') {
-      event.preventDefault();
-      router.push(searchLink);
+  };
+
+  const handlePredictionClick = (selectedPrediction: string) => {
+    setInputValue(selectedPrediction);
+    setPredictions([]);
+  
+    fetchAqiData(selectedPrediction).catch((error) => {
+      console.error(error);
+    });
+  };  
+ 
+  const fetchAqiData = async (city: string) => {
+    try {
+      // Step 1: Fetch latitude and longitude using geocoding
+      const geocodingApiUrl = `${GEOCODING_API_URL}${encodeURIComponent(city)}`;
+      const geocodingResponse = await fetch(geocodingApiUrl);
+      const geocodingData = await geocodingResponse.json() as geocodingSchema;
+  
+      // Step 2: Validate the response data using the schema
+      const validatedData = geocodingResponseSchema.parse(geocodingData);
+  
+      // Step 3: Extract latitude and longitude from the validated data
+      const lat = validatedData.results[0]?.geometry.location.lat as number;
+      const lng = validatedData.results[0]?.geometry.location.lng as number;
+  
+      // Check if lat and lng are defined
+      if (typeof lat === 'number' && typeof lng === 'number') {
+        // Step 4: Use latitude and longitude in the AQI API URL
+        const aqiApiUrl = `/api/geolocation?lat=${lat}&lng=${lng}`;
+        const aqiResponse = await fetch(aqiApiUrl);
+        const aqiData= await aqiResponse.json() as AqiData;
+        console.log('Fetched data:', aqiData);
+  
+        // Update the search link
+        const searchLink = `/information?city=${encodeURIComponent(city)}`;
+        setSearchLink(searchLink);
+  
+        // Route to the search link
+        router.push(searchLink);
+      } else {
+        console.error('Invalid latitude or longitude');
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
   
@@ -77,7 +147,7 @@ const SearchBar = () => {
     setHasText(false);
   };  
 
-  useEffect(() => {
+  const updateHighlightedPrediction = useCallback(() => {
     if (highlightedIndex !== -1) {
       const selectedPrediction = predictions[highlightedIndex];
       if (selectedPrediction) {
@@ -87,6 +157,10 @@ const SearchBar = () => {
       setHighlightedPrediction('');
     }
   }, [highlightedIndex, predictions]);
+  
+  useEffect(() => {
+    updateHighlightedPrediction();
+  }, [updateHighlightedPrediction]);  
   
   return (
     <div className="relative">
@@ -103,17 +177,22 @@ const SearchBar = () => {
 
       {predictions.length > 0 && (
         <ul className="absolute w-full mt-1 bg-white rounded-lg">
-          {predictions.map((prediction, index) => (
-            <li
-              key={prediction}
-              className={`p-2 ${
-                index !== predictions.length - 1 ? 'border-b border-gray-300' : ''
-              } text-black text-sm font-semibold ${prediction === highlightedPrediction ? 'bg-gray-200 rounded-lg' : ''}`} 
-            >
-              {prediction}
-            </li>
-          ))}
-        </ul>
+        {predictions.map((prediction, index) => (
+          <li
+            key={prediction}
+            className={`p-2 ${
+              index !== predictions.length - 1 ? 'border-b border-gray-300' : ''
+            } text-black text-sm font-semibold ${
+              prediction === highlightedPrediction ? 'bg-gray-200 rounded-lg' : ''
+            } ${prediction === highlightedPrediction ? 'cursor-pointer hover:bg-gray-300' : ''}`}
+            onClick={() => handlePredictionClick(prediction)}
+            onMouseEnter={() => handlePredictionMouseEnter(prediction)}
+            onMouseLeave={handlePredictionMouseLeave}
+          >
+            {prediction}
+          </li>
+        ))}
+      </ul>         
       )}
       {hasText && (
       <button className='absolute right-2 pb-2 w-10 text-2xl h-full text-black' onClick={handleClearInput}>×</button>

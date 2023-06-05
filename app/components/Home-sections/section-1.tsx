@@ -42,7 +42,7 @@ export default function Section1() {
           </h1>
           <p className='opacity-70'>
             Discover the current AQI (Air Quality Index) of the closest
-            station to your location.
+            station to your city.
           </p>
           <div className='flex gap-4 relative'>
             <div className='z-50 relative h-12 flex gap-4 flex-shrink w-full sm:max-w-[16rem] bottom-0 right-0'>
