@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation'
 import { useDebounce } from 'use-debounce';
@@ -125,10 +124,9 @@ const SearchBar = () => {
         const aqiApiUrl = `/api/geolocation?lat=${lat}&lng=${lng}`;
         const aqiResponse = await fetch(aqiApiUrl);
         const aqiData= await aqiResponse.json() as AqiData;
-        console.log('Fetched data:', aqiData);
   
         // Update the search link
-        const searchLink = `/information?city=${encodeURIComponent(city)}`;
+        const searchLink = `/information?city=${encodeURIComponent(city)}&lat=${lat}&lng=${lng}`;
         setSearchLink(searchLink);
   
         // Route to the search link

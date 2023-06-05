@@ -1,36 +1,57 @@
 'use client'
-
+import { useState, useEffect } from "react"
 import Footer from "app/components/Footer"
 import Navbar from "app/components/Navbar"
 import UpBtn from "app/components/ScrollBtn"
 import type { Metadata } from "next"
-import { type AqiData } from "types"
+import { z } from "zod";
+import { formatDistanceToNow } from 'date-fns';
 
 export const metadata: Metadata = {
   title: 'Information Page'
 }
 
+const AqiData = z.object({
+  data: z.object({
+    city: z.object({
+      name: z.string(),
+    }),
+    time: z.object({
+      iso: z.string(),
+    }),
+  }),
+});
+
+export type AqiData = z.infer<typeof AqiData>;
+
 export default function Information() {
+  const [cityName, setCityName] = useState('')
+  const [aqiData, setAqiData] = useState<AqiData | undefined>(undefined);
+  
   const getURLParameter = (sParam: string) => {
-    const sPageURL = window.location.search.substring(1)
-    const sURLVariables = sPageURL.split('&')
+    const sPageURL = window.location.search.substring(1);
+    const sURLVariables = sPageURL.split("&");
     for (let i = 0; i < sURLVariables.length; i++) {
-      const sParameterName = sURLVariables[i]?.split('=') ?? [];
-      if (sParameterName[0] == sParam) {
-        return sParameterName[1]
+      const sParameterName = sURLVariables[i]?.split("=") ?? [];
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] || ""; // Return an empty string if the value is undefined
       }
     }
-  }
+    return "";
+  };  
 
   const fetchAqiData = async () => {
+    const name = decodeURIComponent(getURLParameter('city'))
+    name.replace('%20', '-')
+    setCityName(name)
     const lat = getURLParameter('lat') ?? '';
     const lng = getURLParameter('lng') ?? '';
     try {
       const res = await fetch(`http://localhost:3000/api/geolocation?lat=${lat}&lng=${lng}`);
       if (res.ok) {
         const data = await res.json() as AqiData;
-        // Handle the response data
-        console.log(data);
+        setAqiData(data);
+  
       } else {
         throw new Error('Failed to fetch AQI data');
       }
@@ -38,6 +59,17 @@ export default function Information() {
       console.error('Failed to fetch AQI data:', error);
     }
   };
+
+   // event listener first load
+   useEffect(() => {
+    const fetchData = async () => {
+      await fetchAqiData();
+    };
+  
+    fetchData().catch((error) => {
+      console.error("Failed to fetch AQI data:", error);
+    });
+  }, []);  
   
   return (
     <>
@@ -49,20 +81,19 @@ export default function Information() {
           <div className='flex flex-col gap-2'>
           <h1 className=' text-3xl font-bold tracking-wider'>
             Air quality in{' '}
-            <b className='capitalize font-bold tracking-wider'></b>
+            <b className='capitalize font-bold tracking-wider'>{cityName}</b>
           </h1>
           <div className='flex flex-col'>
             <p className='opacity-70'>
-              Air quality index (AQI) and other relevant air pollution
-              data in{' '}
-              <b className='capitalize font-normal'>City Name</b>.
+              Air quality index (AQI) and other relevant air pollution data in{' '}
+              <b className='capitalize font-normal'>{cityName}</b>.
             </p>
             <p className='opacity-70'>
-              Closest AQI station: {'City name'}.
+              Closest AQI station: {aqiData?.data.city.name}.
             </p>
           </div>
             <p className='opacity-70 text-sm mt-3'>
-              Last updated 
+            Last updated {aqiData?.data?.time?.iso && formatDistanceToNow(new Date(aqiData.data.time.iso), { addSuffix: true })} ago
             </p>
           </div>
           {/* --- CITY IMAGE AND AQI --- */}
