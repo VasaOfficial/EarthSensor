@@ -1,7 +1,4 @@
-declare module '*.glsl' {
-  const value: string;
-  export default value;
-}
+import { z } from 'zod';
 
 export type AqiData = {
   lat: number;
@@ -11,3 +8,19 @@ export type AqiData = {
   radius: number;
   station: { name: string; time: Date}
 };
+
+export const ResultSchema = z.object({
+  urls: z.object({
+    regular: z.string(),
+  }),
+  links: z.object({
+    html: z.string(),
+  }),
+  user: z.object({
+    name: z.string(),
+  }),
+});
+
+export const APIResponseSchema = z.object({
+  results: z.array(ResultSchema),
+});

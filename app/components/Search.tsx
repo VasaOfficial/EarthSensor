@@ -88,7 +88,7 @@ const SearchBar = () => {
         setInputValue(selectedPrediction);
         setPredictions([]);
   
-        fetchAqiData(selectedPrediction).catch((error) => {
+        fetchGeocode(selectedPrediction).catch((error) => {
           console.error(error);
         });
       }
@@ -99,12 +99,12 @@ const SearchBar = () => {
     setInputValue(selectedPrediction);
     setPredictions([]);
   
-    fetchAqiData(selectedPrediction).catch((error) => {
+    fetchGeocode(selectedPrediction).catch((error) => {
       console.error(error);
     });
   };  
  
-  const fetchAqiData = async (city: string) => {
+  const fetchGeocode = async (city: string) => {
     try {
       // Step 1: Fetch latitude and longitude using geocoding
       const geocodingApiUrl = `${GEOCODING_API_URL}${encodeURIComponent(city)}`;
@@ -120,11 +120,7 @@ const SearchBar = () => {
   
       // Check if lat and lng are defined
       if (typeof lat === 'number' && typeof lng === 'number') {
-        // Step 4: Use latitude and longitude in the AQI API URL
-        const aqiApiUrl = `/api/geolocation?lat=${lat}&lng=${lng}`;
-        const aqiResponse = await fetch(aqiApiUrl);
-        const aqiData= await aqiResponse.json() as AqiData;
-  
+        
         // Update the search link
         const searchLink = `/information?city=${encodeURIComponent(city)}&lat=${lat}&lng=${lng}`;
         setSearchLink(searchLink);

@@ -23,6 +23,10 @@ const config = {
   },
   */
 
+  images: {
+    domains: ['images.unsplash.com', 'openweathermap.org'],
+  },
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
