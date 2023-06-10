@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export type AqiData = {
+export type GeoData = {
   lat: number;
   lon: number;
   aqi: number;
@@ -24,3 +24,34 @@ export const ResultSchema = z.object({
 export const APIResponseSchema = z.object({
   results: z.array(ResultSchema),
 });
+
+export type AqiDataSchema = {
+  data: {
+    aqi: number;
+    city: {
+      name: string;
+    };
+    time: {
+      iso: string;
+    };
+    iaqi: {
+      [key: string]: {
+        v: number;
+      };
+    };
+    forecast: {
+      daily: {
+        o3: DailyForecast[];
+        pm10: DailyForecast[];
+        pm25: DailyForecast[];
+      };
+    };
+  };
+};
+
+export type DailyForecast = {
+  avg: number;
+  day: string;
+  max: number;
+  min: number;
+};

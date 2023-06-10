@@ -1,39 +1,93 @@
 'use client'
 import { useState, useEffect } from "react"
-import Footer from "app/components/Footer"
-import Navbar from "app/components/Navbar"
-import UpBtn from "app/components/ScrollBtn"
+import Chart from "app/components/Chart";
 import type { Metadata } from "next"
 import { z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
-import { type ResultSchema } from "types"
-import { type APIResponseSchema } from "types"
 
 export const metadata: Metadata = {
   title: 'Information Page'
 }
 
-const AqiData = z.object({
-  data: z.object({
-    aqi: z.number(),
-    city: z.object({
-      name: z.string(),
-    }),
-    time: z.object({
-      iso: z.string(),
-    }),
+ const ResultSchema = z.object({
+  urls: z.object({
+    regular: z.string(),
+  }),
+  links: z.object({
+    html: z.string(),
+  }),
+  user: z.object({
+    name: z.string(),
   }),
 });
+ const APIResponseSchema = z.object({
+  results: z.array(ResultSchema),
+});
 
-export type AqiData = z.infer<typeof AqiData>;
 export type APIResponseSchema = z.infer<typeof APIResponseSchema>;
 export type ResultSchema = z.infer<typeof ResultSchema>;
 
+type AqiDataSchema = {
+  status: string,
+  data: {
+    aqi: number;
+    city: {
+      name: string;
+    };
+    time: {
+      iso: string;
+    };
+    iaqi: {
+      [key: string]: {
+        v: number;
+      };
+    };
+    forecast: {
+      daily: {
+        [key: string]: DailyForecast[];
+        o3: DailyForecast[];
+        pm10: DailyForecast[];
+        pm25: DailyForecast[];
+      };
+    };
+  };
+};
+
+export type DailyForecast = {
+  avg: number;
+  day: string;
+  max: number;
+  min: number;
+};
+
+export const polluants: { [key: string]: string } = {
+  no2: 'NO2',
+  pm25: 'PM2.5',
+  pm10: 'PM10',
+  o3: 'O3',
+  so2: 'SO2',
+  co: 'CO',
+};
 
 export default function Information() {
   const [cityName, setCityName] = useState('')
-  const [aqiData, setAqiData] = useState<AqiData>({ data: { aqi: 0, city: { name: "" }, time: { iso: "" } } })
+  const [aqiData, setAqiData] = useState<AqiDataSchema>({
+    status: '',
+    data: {
+      aqi: 0,
+      city: { name: "" },
+      time: { iso: "" },
+      forecast: {
+        daily: {
+          o3: [{ avg: 0, day: "", max: 0, min: 0 }],
+          pm10: [{ avg: 0, day: "", max: 0, min: 0 }],
+          pm25: [{ avg: 0, day: "", max: 0, min: 0 }],
+        },
+      },
+      iaqi: {},
+    },
+  });
   const [pictures, setPictures] = useState<APIResponseSchema>({ results: [] });
   const [picture, setPicture] = useState<ResultSchema>();
   const [count, setCount] = useState(0)
@@ -54,12 +108,13 @@ export default function Information() {
     const name = decodeURIComponent(getURLParameter('city'))
     name.replaceAll('%20', '-');
     setCityName(name)
-    const lat = getURLParameter('lat') ?? '';
-    const lng = getURLParameter('lng') ?? '';
+    const lat = getURLParameter('lat') || '';
+    const lng = getURLParameter('lng') || '';
     try {
       const res = await fetch(`http://localhost:3000/api/geolocation?lat=${lat}&lng=${lng}`);
       if (res.ok) {
-        const data = await res.json() as AqiData;
+        const data = await res.json() as AqiDataSchema;
+        console.log(data)
         setAqiData(data);
         await fetchImages(name)
       } else {
@@ -74,9 +129,8 @@ export default function Information() {
     try {
       const res = await fetch(`http://localhost:3000/api/unsplash?query=${name}`);
       if (res.ok) {
-        const data = await res.json() as APIResponseSchema;
-        console.log(data);
-        setPictures(data);
+        const images = await res.json() as APIResponseSchema;
+        setPictures(images);
       } else {
         throw new Error('Failed to fetch images');
       }
@@ -109,10 +163,19 @@ export default function Information() {
       console.error("Failed to fetch data:", error);
     });
   }, []);
+
+  // polluant filter function
+  const filterPolluants = (item: string): boolean => {
+    for (const key in polluants) {
+      if (item === key) return true;
+    }
+    return false; // Add a default return value
+  };  
   
   return (
       <section className='w-full bg-neutral-50'>
         <div className='my-0 mx-auto flex flex-col px-[5vw] pt-24 pb-6 md:pt-28 md:pb-28 max-w-[70rem] min-h-screen bg-neutral-50'>
+        {aqiData && aqiData.status === 'ok' ? (
             <>
               {/* --- TITLE SECTION --- */}
               {cityName !== 'here' ? (
@@ -210,25 +273,59 @@ export default function Information() {
                     )}
                     <figcaption className='z-10 text-sm absolute bottom-0 text-white mb-2 ml-3'>
                       Picture by{' '}
-                      <a
-                        className='underline'
+                      <a className='underline'
                         href={picture && picture.links.html}>
                         {picture && picture.user.name}
                       </a>
                     </figcaption>
-                    <button
-                      onClick={changePicture}
-                      className='z-10 absolute bottom-0 right-0 mb-2 mr-3 text-white'>
-                      ↺
+                    <button onClick={changePicture}
+                    className='z-10 absolute bottom-0 right-0 mb-2 mr-3 text-white'>
+                    ↺
                     </button>
                   </figure>
                 </div>
                 {/* --- POLLUANTS ---*/}
+                <div className='flex flex-col gap-6 w-full h-fit md:w-1/2'>
+                  {aqiData.data.forecast && aqiData.data.forecast.daily && (
+                    <div className='flex flex-col gap-4 p-4 w-full bg-neutral-200 rounded-md'>
+                      <h3 className='w-full text-center opacity-70 text-lg'>
+                        Polluants
+                      </h3>
+                      {Object.keys(aqiData.data.forecast.daily)
+                        .filter(filterPolluants)
+                        .sort()
+                        .map((keyName, index) => {
+                          const data = aqiData.data.forecast.daily[keyName];
+                          console.log(data)
+                          const polluantData = polluants[keyName];
+                          const currentIaqi =
+                          aqiData.data.iaqi[keyName]
+                            ? aqiData.data.iaqi[keyName]?.v
+                            : aqiData.data.forecast.daily[keyName]?.[0]?.avg;
+                      return (
+                        <Chart
+                        key={`${keyName}${index}`}
+                        data={data}
+                        name={polluantData || ''}
+                        currentIaqi={currentIaqi}
+                      />
+                    );
+                  })}
+                    </div>
+                  )}
+                  <div id='tooltip'className='z-50 fixed hidden w-64 text-sm p-2 rounded-md top-0 left-0 backdrop-blur border-solid border-black shadow-lg pointer-events-none text-black bg-emerald-400 leading-4'></div>
+                </div>
+              {/* --- WEATHER ---*/}
               </div>
             </>
+            ) : // --- CITY NOT FOUND ---
+            aqiData && aqiData.status === 'error' ? (
+              <h1 />
+            ) : (
+              // --- LOADING ---
+              <p>Loading...</p>
+            )}
         </div>
       </section>
   )
 }
-
-// { results: [{ urls: { regular: ""}, links: { html: "" }, user: { name: "" } }] }

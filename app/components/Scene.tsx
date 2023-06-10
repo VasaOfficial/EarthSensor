@@ -4,12 +4,12 @@ import { OrbitControls } from '@react-three/drei'
 import { GizmoHelper } from '@react-three/drei'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
-import { type AqiData } from 'types'
+import { type GeoData } from 'types'
 import Earth from './Earth'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const Scene: React.FC<{ data: AqiData[] }> = ({ data }) => {
+const Scene: React.FC<{ data: GeoData[] }> = ({ data }) => {
   const [frameLoop, setFrameLoop] = useState<'always' | 'demand'>('always')
 
   // Listener for mouse movement

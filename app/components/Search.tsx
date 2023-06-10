@@ -3,7 +3,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation'
 import { useDebounce } from 'use-debounce';
 import { z } from 'zod';
-import { type AqiData } from 'types';
 
 const dataSchema = z.object({
   descriptions: z.array(z.string()),

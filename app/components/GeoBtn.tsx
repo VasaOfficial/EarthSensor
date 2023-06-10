@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image"
 import Location from 'public/assets/location.png'
 import { useRouter } from "next/navigation"

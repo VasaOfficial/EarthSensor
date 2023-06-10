@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { TextureLoader, type Group } from 'three'
 import * as THREE from 'three'
-import { type AqiData } from 'types'
+import { type GeoData } from 'types'
 import Prism from 'utils/Prism'
 
 import globeVertexShader from 'shaders/globe/vertex.glsl'
@@ -58,7 +58,7 @@ const Atmosphere: React.FC<AtmosphereProps> = ({ radius }) => {
   )
 }
 
-const Earth: React.FC<{ data: AqiData[] }> = ({ data }) => {
+const Earth: React.FC<{ data: GeoData[] }> = ({ data }) => {
   const earthRef = useRef<Group | undefined>(undefined)
   const [radius, setRadius] = useState(
     window.innerWidth < 640
