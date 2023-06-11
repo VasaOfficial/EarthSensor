@@ -1,64 +1,35 @@
 'use client'
 import { useState, useEffect } from "react"
-import Chart from "app/components/Chart";
 import type { Metadata } from "next"
-import { z } from "zod";
+import { type z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
+import { type AqiDataSchema, type ResultSchema, type APIResponseSchema, type WeatherData} from "types";
+
+import Chart from "app/components/Chart";
+import Weather from "app/components/Weather";
 
 export const metadata: Metadata = {
   title: 'Information Page'
 }
 
- const ResultSchema = z.object({
-  urls: z.object({
-    regular: z.string(),
-  }),
-  links: z.object({
-    html: z.string(),
-  }),
-  user: z.object({
-    name: z.string(),
-  }),
-});
- const APIResponseSchema = z.object({
-  results: z.array(ResultSchema),
-});
-
 export type APIResponseSchema = z.infer<typeof APIResponseSchema>;
 export type ResultSchema = z.infer<typeof ResultSchema>;
 
-type AqiDataSchema = {
-  status: string,
-  data: {
-    aqi: number;
-    city: {
-      name: string;
-    };
-    time: {
-      iso: string;
-    };
-    iaqi: {
-      [key: string]: {
-        v: number;
-      };
-    };
-    forecast: {
-      daily: {
-        [key: string]: DailyForecast[];
-        o3: DailyForecast[];
-        pm10: DailyForecast[];
-        pm25: DailyForecast[];
-      };
-    };
-  };
-};
-
-export type DailyForecast = {
-  avg: number;
-  day: string;
-  max: number;
-  min: number;
+const initialWeatherData: WeatherData = {
+  current: {
+    temp: 0,
+    feels_like: 0,
+    humidity: 0,
+    uvi: 0,
+    wind_speed: 0,
+    weather: [{ id: 0, description: ''}],
+  },
+  daily: [
+    {
+      day: 0,
+    },
+  ],
 };
 
 export const polluants: { [key: string]: string } = {
@@ -71,7 +42,7 @@ export const polluants: { [key: string]: string } = {
 };
 
 export default function Information() {
-  const [cityName, setCityName] = useState('')
+  const [cityName, setCityName] = useState('');
   const [aqiData, setAqiData] = useState<AqiDataSchema>({
     status: '',
     data: {
@@ -90,7 +61,8 @@ export default function Information() {
   });
   const [pictures, setPictures] = useState<APIResponseSchema>({ results: [] });
   const [picture, setPicture] = useState<ResultSchema>();
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [weatherData, setWeatherData] = useState<WeatherData>(initialWeatherData);
 
   const getURLParameter = (sParam: string) => {
     const sPageURL = window.location.search.substring(1);
@@ -114,9 +86,9 @@ export default function Information() {
       const res = await fetch(`http://localhost:3000/api/geolocation?lat=${lat}&lng=${lng}`);
       if (res.ok) {
         const data = await res.json() as AqiDataSchema;
-        console.log(data)
         setAqiData(data);
         await fetchImages(name)
+        await fetchWeather()
       } else {
         throw new Error('Failed to fetch AQI data');
       }
@@ -169,8 +141,26 @@ export default function Information() {
     for (const key in polluants) {
       if (item === key) return true;
     }
-    return false; // Add a default return value
+    return false;
   };  
+
+  const fetchWeather = async () => {
+    const lat = getURLParameter('lat') || '';
+    const lng = getURLParameter('lng') || '';
+    if (lat && lng) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/weather?lat=${lat}&lng=${lng}`);
+        if (res.ok) {
+          const data = await res.json() as WeatherData;
+          setWeatherData(data);
+        } else {
+          throw new Error('Failed to fetch weather data');
+        }
+      } catch (error) {
+        console.error('Failed to fetch weather data:', error);
+      }
+    }
+  }
   
   return (
       <section className='w-full bg-neutral-50'>
@@ -296,7 +286,6 @@ export default function Information() {
                         .sort()
                         .map((keyName, index) => {
                           const data = aqiData.data.forecast.daily[keyName];
-                          console.log(data)
                           const polluantData = polluants[keyName];
                           const currentIaqi =
                           aqiData.data.iaqi[keyName]
@@ -315,8 +304,9 @@ export default function Information() {
                   )}
                   <div id='tooltip'className='z-50 fixed hidden w-64 text-sm p-2 rounded-md top-0 left-0 backdrop-blur border-solid border-black shadow-lg pointer-events-none text-black bg-emerald-400 leading-4'></div>
                 </div>
-              {/* --- WEATHER ---*/}
               </div>
+              {/* --- WEATHER ---*/}
+              <Weather weatherData={weatherData} />
             </>
             ) : // --- CITY NOT FOUND ---
             aqiData && aqiData.status === 'error' ? (

@@ -1,32 +1,13 @@
 'use client'
-import { useEffect } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from 'recharts'
 import { format } from 'date-fns'
 import gsap from 'gsap'
-import { type z } from "zod";
-import { type ResultSchema, type APIResponseSchema } from "types"
-
-export type ResultSchema = z.infer<typeof ResultSchema>;
-export type APIResponseSchema = z.infer<typeof APIResponseSchema>;
-
-type PolluantsDefinition = {
-  [key: string]: string;
-  'PM2.5': string
-  PM10: string
-  O3: string
-  NO2: string
-  SO2: string
-  CO: string
-}
+import { type PolluantsDefinition, type DailyForecast } from 'types'
 
 type ChartProps = {
   data: DailyForecast[] | undefined;
   name: string;
   currentIaqi: number | undefined;
-};
-
-export type DailyForecast = {
-  avg: number;
 };
 
 export default function Chart({ data, name, currentIaqi }: ChartProps) {

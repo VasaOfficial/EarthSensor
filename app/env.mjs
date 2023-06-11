@@ -9,6 +9,7 @@ const server = z.object({
   GOOGLE_MAP_API: z.string(),
   AQI_API: z.string(),
   UNSPLASH_API: z.string(),
+  OPENWEATHER_API: z.string(),
 });
 
 /**
@@ -35,6 +36,7 @@ const processEnv = {
   GOOGLE_MAP_API: process.env.GOOGLE_MAP_API,
   AQI_API: process.env.AQI_API,
   UNSPLASH_API: process.env.UNSPLASH_API,
+  OPENWEATHER_API: process.env.OPENWEATHER_API,
 };
 
 // Don't touch the part below
