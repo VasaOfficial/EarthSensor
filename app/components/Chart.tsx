@@ -5,9 +5,9 @@ import gsap from 'gsap'
 import { type PolluantsDefinition, type DailyForecast } from 'types'
 
 type ChartProps = {
-  data: DailyForecast[] | undefined;
+  data?: DailyForecast[];
   name: string;
-  currentIaqi: number | undefined;
+  currentIaqi?: number;
 };
 
 export default function Chart({ data, name, currentIaqi }: ChartProps) {

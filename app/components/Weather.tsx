@@ -2,14 +2,15 @@ import WeatherChart from "./WeatherChart"
 import { type WeatherData } from "types"
 
 type WeatherProps = {
-  weatherData: WeatherData;
+  weatherData: WeatherData | null;
 };
 
 export default function Weather({ weatherData }: WeatherProps) {
 
-  const firstWeather = weatherData.current.weather[0];
+  const firstWeather = weatherData?.current.weather[0];
 
     return (
+      weatherData && (
         <div className='flex flex-col gap-4 w-full h-fit overflow-hidden bg-neutral-200 rounded-lg p-4  mt-6'>
           <h3 className='w-full text-center opacity-70 text-lg'>Weather</h3>
           <div className='flex md:flex-row flex-col gap-4 h-full'>
@@ -48,5 +49,6 @@ export default function Weather({ weatherData }: WeatherProps) {
             <WeatherChart weatherData={weatherData.daily} />
           </div>
         </div>
+    )
     )
   }

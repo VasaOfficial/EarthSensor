@@ -1,4 +1,3 @@
-'use client'
 import { useState, useEffect } from 'react'
 import {AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { addDays, format } from 'date-fns'
@@ -10,7 +9,8 @@ type WeatherChartProps = {
 
 export default function WeatherChart({ weatherData }: WeatherChartProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const [chartKey, setChartKey] = useState(0); // for rerendering
+  
   useEffect(() => {
     if (!weatherData) return;
     weatherData.forEach((e, i) => {
@@ -18,6 +18,7 @@ export default function WeatherChart({ weatherData }: WeatherChartProps) {
       e.day = new Date(day).getTime();
     });
     setIsLoaded(true);
+    setChartKey(prevKey => prevKey + 1);
   }, [weatherData]);  
 
   return (

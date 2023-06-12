@@ -16,22 +16,6 @@ export const metadata: Metadata = {
 export type APIResponseSchema = z.infer<typeof APIResponseSchema>;
 export type ResultSchema = z.infer<typeof ResultSchema>;
 
-const initialWeatherData: WeatherData = {
-  current: {
-    temp: 0,
-    feels_like: 0,
-    humidity: 0,
-    uvi: 0,
-    wind_speed: 0,
-    weather: [{ id: 0, description: ''}],
-  },
-  daily: [
-    {
-      day: 0,
-    },
-  ],
-};
-
 export const polluants: { [key: string]: string } = {
   no2: 'NO2',
   pm25: 'PM2.5',
@@ -43,26 +27,11 @@ export const polluants: { [key: string]: string } = {
 
 export default function Information() {
   const [cityName, setCityName] = useState('');
-  const [aqiData, setAqiData] = useState<AqiDataSchema>({
-    status: '',
-    data: {
-      aqi: 0,
-      city: { name: "" },
-      time: { iso: "" },
-      forecast: {
-        daily: {
-          o3: [{ avg: 0, day: "", max: 0, min: 0 }],
-          pm10: [{ avg: 0, day: "", max: 0, min: 0 }],
-          pm25: [{ avg: 0, day: "", max: 0, min: 0 }],
-        },
-      },
-      iaqi: {},
-    },
-  });
-  const [pictures, setPictures] = useState<APIResponseSchema>({ results: [] });
+  const [aqiData, setAqiData] = useState<AqiDataSchema | null>(null);
+  const [pictures, setPictures] = useState<APIResponseSchema | null>(null);
   const [picture, setPicture] = useState<ResultSchema>();
   const [count, setCount] = useState(0);
-  const [weatherData, setWeatherData] = useState<WeatherData>(initialWeatherData);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const getURLParameter = (sParam: string) => {
     const sPageURL = window.location.search.substring(1);
@@ -80,15 +49,15 @@ export default function Information() {
     const name = decodeURIComponent(getURLParameter('city'))
     name.replaceAll('%20', '-');
     setCityName(name)
-    const lat = getURLParameter('lat') || '';
-    const lng = getURLParameter('lng') || '';
+    const lat = getURLParameter('lat');
+    const lng = getURLParameter('lng');
     try {
       const res = await fetch(`http://localhost:3000/api/geolocation?lat=${lat}&lng=${lng}`);
       if (res.ok) {
         const data = await res.json() as AqiDataSchema;
         setAqiData(data);
         await fetchImages(name)
-        await fetchWeather()
+        await fetchWeather(lat, lng)
       } else {
         throw new Error('Failed to fetch AQI data');
       }
@@ -144,9 +113,7 @@ export default function Information() {
     return false;
   };  
 
-  const fetchWeather = async () => {
-    const lat = getURLParameter('lat') || '';
-    const lng = getURLParameter('lng') || '';
+  const fetchWeather = async (lat: string, lng: string) => {
     if (lat && lng) {
       try {
         const res = await fetch(`http://localhost:3000/api/weather?lat=${lat}&lng=${lng}`);
