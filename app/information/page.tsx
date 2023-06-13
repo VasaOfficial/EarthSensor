@@ -5,6 +5,8 @@ import { type z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
 import { type AqiDataSchema, type ResultSchema, type APIResponseSchema, type WeatherData, type Coordinates} from "types";
+import Footer from "app/components/Footer";
+import UpBtn from "app/components/ScrollBtn";
 
 import Chart from "app/components/Chart";
 import Weather from "app/components/Weather";
@@ -292,6 +294,8 @@ export default function Information() {
               <p>Loading...</p>
             )}
         </div>
+        <Footer />
+        <UpBtn />
       </section>
   )
 }
