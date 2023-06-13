@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { type NextApiRequest } from 'next';
 import { env } from 'app/env.mjs';
 
 type DataItem = {
@@ -12,9 +13,17 @@ type DataItem = {
   };
 }
 
-export async function GET() {
+export async function GET(req: NextApiRequest) {
+  const { latlng } = req.query;
   const apiKey = env.AQI_API;
-  const apiUrl = `https://api.waqi.info/v2/map/bounds?latlng=-85,-180,85,180&networks=official&token=${apiKey}`
+
+  let apiUrl: string;
+  if (latlng) {
+    apiUrl = `https://api.waqi.info/v2/map/bounds?latlng=${latlng.toString()}&networks=official&token=${apiKey}`;
+  } else {
+    // Handle the case when latlng is undefined
+    throw new Error("Missing latlng parameter");
+  }
 
   const res = await fetch(apiUrl, { next: { revalidate: 7200 } });
 

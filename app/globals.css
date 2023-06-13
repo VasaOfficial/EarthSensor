@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
 .navbar {
     transition: transform 1s ease;
     transform: translateY(-100%);

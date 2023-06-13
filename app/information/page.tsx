@@ -4,10 +4,11 @@ import type { Metadata } from "next"
 import { type z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
-import { type AqiDataSchema, type ResultSchema, type APIResponseSchema, type WeatherData} from "types";
+import { type AqiDataSchema, type ResultSchema, type APIResponseSchema, type WeatherData, type Coordinates} from "types";
 
 import Chart from "app/components/Chart";
 import Weather from "app/components/Weather";
+import AqiMap from "app/components/AqiMap";
 
 export const metadata: Metadata = {
   title: 'Information Page'
@@ -32,6 +33,8 @@ export default function Information() {
   const [picture, setPicture] = useState<ResultSchema>();
   const [count, setCount] = useState(0);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [refreshMap, setRefreshMap] = useState(false)
+  const [coordinates, setCoordinates] = useState<Coordinates | null>(null)
 
   const getURLParameter = (sParam: string) => {
     const sPageURL = window.location.search.substring(1);
@@ -46,6 +49,7 @@ export default function Information() {
   };  
 
   const fetchAqiData = async () => {
+    setRefreshMap(true)
     const name = decodeURIComponent(getURLParameter('city'))
     name.replaceAll('%20', '-');
     setCityName(name)
@@ -56,8 +60,10 @@ export default function Information() {
       if (res.ok) {
         const data = await res.json() as AqiDataSchema;
         setAqiData(data);
+        setRefreshMap(false)
         await fetchImages(name)
         await fetchWeather(lat, lng)
+        setCoordinates({ lat: Number(lat), lon: Number(lng) })
       } else {
         throw new Error('Failed to fetch AQI data');
       }
@@ -274,6 +280,9 @@ export default function Information() {
               </div>
               {/* --- WEATHER ---*/}
               <Weather weatherData={weatherData} />
+              {!refreshMap && (
+                <AqiMap coordinates={coordinates} />
+              )}
             </>
             ) : // --- CITY NOT FOUND ---
             aqiData && aqiData.status === 'error' ? (

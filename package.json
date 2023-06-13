@@ -24,6 +24,7 @@
     "react": "18.2.0",
     "react-compare-slider": "^2.2.0",
     "react-dom": "18.2.0",
+    "react-map-gl": "^7.0.25",
     "recharts": "^2.6.2",
     "three": "^0.152.2",
     "use-debounce": "^9.0.4",

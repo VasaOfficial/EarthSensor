@@ -94,3 +94,8 @@ type WeatherCondition = {
 export type DailyWeather = {
     day: number;
 };
+
+export type Coordinates = {
+  lat: number;
+  lon: number;
+};
