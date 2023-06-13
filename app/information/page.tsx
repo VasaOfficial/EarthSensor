@@ -5,12 +5,13 @@ import { type z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
 import { type AqiDataSchema, type ResultSchema, type APIResponseSchema, type WeatherData, type Coordinates} from "types";
+
 import Footer from "app/components/Footer";
 import UpBtn from "app/components/ScrollBtn";
-
 import Chart from "app/components/Chart";
 import Weather from "app/components/Weather";
 import AqiMap from "app/components/AqiMap";
+import RandomFacts from "app/components/RandomFacts";
 
 export const metadata: Metadata = {
   title: 'Information Page'
@@ -285,6 +286,23 @@ export default function Information() {
               {!refreshMap && (
                 <AqiMap coordinates={coordinates} />
               )}
+              <RandomFacts
+                bg={
+                  aqiData.data.aqi >= 301
+                    ? 'bg-[#A159FF]/50'
+                    : aqiData.data.aqi >= 201
+                    ? 'bg-[#9866F2]/50'
+                    : aqiData.data.aqi >= 151
+                    ? 'bg-[#9073E6]/50'
+                    : aqiData.data.aqi >= 101
+                    ? 'bg-[#8780D9]/50'
+                    : aqiData.data.aqi >= 51
+                    ? 'bg-[#759BBF]/50'
+                    : aqiData.data.aqi >= 0
+                    ? 'bg-[#5BC299]/50'
+                    : 'bg-[#d96a6a]/50'
+                }
+              />
             </>
             ) : // --- CITY NOT FOUND ---
             aqiData && aqiData.status === 'error' ? (
