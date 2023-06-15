@@ -8,6 +8,7 @@ type WeatherProps = {
 export default function Weather({ weatherData }: WeatherProps) {
 
   const firstWeather = weatherData?.current.weather[0];
+  console.log(firstWeather)
 
     return (
       weatherData && (

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import 'mapbox-gl/dist/mapbox-gl.css';
+@import './styles/weather-icons.css';
 
 .navbar {
     transition: transform 1s ease;
