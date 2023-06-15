@@ -121,7 +121,7 @@ const SearchBar = () => {
       if (typeof lat === 'number' && typeof lng === 'number') {
         
         // Update the search link
-        const searchLink = `/information?city=${encodeURIComponent(city)}&lat=${lat}&lng=${lng}`;
+        const searchLink = `/search?city=${encodeURIComponent(city)}&lat=${lat}&lng=${lng}`;
         setSearchLink(searchLink);
   
         // Route to the search link

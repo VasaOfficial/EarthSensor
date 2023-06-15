@@ -12,6 +12,8 @@ import Chart from "app/components/Chart";
 import Weather from "app/components/Weather";
 import AqiMap from "app/components/AqiMap";
 import RandomFacts from "app/components/RandomFacts";
+import Loading from "app/loading";
+import Navbar from "app/components/Navbar";
 
 export const metadata: Metadata = {
   title: 'Information Page'
@@ -114,7 +116,6 @@ export default function Information() {
     });
   }, []);
 
-  // polluant filter function
   const filterPolluants = (item: string): boolean => {
     for (const key in polluants) {
       if (item === key) return true;
@@ -140,6 +141,7 @@ export default function Information() {
   
   return (
       <section className='w-full bg-neutral-50'>
+        <Navbar className={"navbar navbar-show"} />
         <div className='my-0 mx-auto flex flex-col px-[5vw] pt-24 pb-6 md:pt-28 md:pb-28 max-w-[70rem] min-h-screen bg-neutral-50'>
         {aqiData && aqiData.status === 'ok' ? (
             <>
@@ -148,9 +150,7 @@ export default function Information() {
                 <div className='flex flex-col gap-2'>
                   <h1 className=' text-3xl font-bold tracking-wider'>
                     Air quality in{' '}
-                    <b className='capitalize font-bold tracking-wider'>
-                      {decodeURIComponent(cityName)}
-                    </b>
+                    <b className='capitalize font-bold tracking-wider'>{decodeURIComponent(cityName)}</b>
                   </h1>
                   <div className='flex flex-col'>
                     <p className='opacity-70'>
@@ -158,9 +158,7 @@ export default function Information() {
                       data in{' '}
                       <b className='capitalize font-normal'>{cityName}</b>.
                     </p>
-                    <p className='opacity-70'>
-                      Closest AQI station: {aqiData.data.city.name}.
-                    </p>
+                    <p className='opacity-70'>Closest AQI station: {aqiData.data.city.name}.</p>
                   </div>
                   <p className='opacity-70 text-sm mt-3'>
                   Last updated {aqiData.data.time.iso && formatDistanceToNow(new Date(aqiData.data.time.iso), { addSuffix: true })}
@@ -172,21 +170,20 @@ export default function Information() {
               {/* --- CITY IMAGE AND AQI --- */}
               <div className='flex flex-col md:flex-row gap-6 mt-12'>
                 <div className='flex flex-col gap-6 w-full md:w-1/2 overflow-hidden '>
-                  <div
-                    className={`flex h-fit p-4 rounded-md ${
-                      aqiData.data.aqi >= 301
-                        ? 'bg-[#A159FF]'
-                        : aqiData.data.aqi >= 201
-                        ? 'bg-[#9866F2]'
-                        : aqiData.data.aqi >= 151
-                        ? 'bg-[#9073E6]'
-                        : aqiData.data.aqi >= 101
-                        ? 'bg-[#8780D9]'
-                        : aqiData.data.aqi >= 51
-                        ? 'bg-[#759BBF]'
-                        : aqiData.data.aqi >= 0
-                        ? 'bg-[#5BC299]'
-                        : 'bg-[#d96a6a]'
+                  <div className={`flex h-fit p-4 rounded-md ${
+                    aqiData.data.aqi >= 301
+                      ? 'bg-[#A159FF]'
+                      : aqiData.data.aqi >= 201
+                      ? 'bg-[#9866F2]'
+                      : aqiData.data.aqi >= 151
+                      ? 'bg-[#9073E6]'
+                      : aqiData.data.aqi >= 101
+                      ? 'bg-[#8780D9]'
+                      : aqiData.data.aqi >= 51
+                      ? 'bg-[#759BBF]'
+                      : aqiData.data.aqi >= 0
+                      ? 'bg-[#5BC299]'
+                      : 'bg-[#d96a6a]'
                     }`}>
                     <div className='flex flex-col items-center justify-center p-4 bg-black/10 rounded-md'>
                       <p>AQI</p>
@@ -211,7 +208,6 @@ export default function Information() {
                       </p>
                     </div>
                   </div>
-
                   <figure
                     className={`relative h-72 md:h-full flex flex-col rounded-md overflow-hidden after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1/3 after:bg-gradient-to-t after:from-black/50 after:to-transparent after:pointer-events-none ${
                       aqiData.data.aqi >= 301
@@ -239,8 +235,7 @@ export default function Information() {
                     )}
                     <figcaption className='z-10 text-sm absolute bottom-0 text-white mb-2 ml-3'>
                       Picture by{' '}
-                      <a className='underline'
-                        href={picture && picture.links.html}>
+                      <a className='underline' href={picture && picture.links.html}>
                         {picture && picture.user.name}
                       </a>
                     </figcaption>
@@ -254,9 +249,7 @@ export default function Information() {
                 <div className='flex flex-col gap-6 w-full h-fit md:w-1/2'>
                   {aqiData.data.forecast && aqiData.data.forecast.daily && (
                     <div className='flex flex-col gap-4 p-4 w-full bg-neutral-200 rounded-md'>
-                      <h3 className='w-full text-center opacity-70 text-lg'>
-                        Polluants
-                      </h3>
+                      <h3 className='w-full text-center opacity-70 text-lg'>Polluants</h3>
                       {Object.keys(aqiData.data.forecast.daily)
                         .filter(filterPolluants)
                         .sort()
@@ -304,12 +297,8 @@ export default function Information() {
                 }
               />
             </>
-            ) : // --- CITY NOT FOUND ---
-            aqiData && aqiData.status === 'error' ? (
-              <h1 />
-            ) : (
-              // --- LOADING ---
-              <p>Loading...</p>
+            )  : (
+              <Loading />
             )}
         </div>
         <Footer />
