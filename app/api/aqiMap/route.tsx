@@ -25,7 +25,7 @@ export async function GET(req: NextApiRequest) {
     throw new Error("Missing latlng parameter");
   }
 
-  const res = await fetch(apiUrl, { next: { revalidate: 7200 } });
+  const res = await fetch(apiUrl);
 
   const { data } = await res.json() as { data: DataItem[] };
 

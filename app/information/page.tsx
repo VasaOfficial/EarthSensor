@@ -1,6 +1,7 @@
 'use client'
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import type { Metadata } from "next"
+import { usePathname, useSearchParams } from "next/navigation";
 import { type z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
@@ -32,6 +33,8 @@ export const polluants: { [key: string]: string } = {
 };
 
 export default function Information() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [cityName, setCityName] = useState('');
   const [aqiData, setAqiData] = useState<AqiDataSchema | null>(null);
   const [pictures, setPictures] = useState<APIResponseSchema | null>(null);
@@ -40,6 +43,8 @@ export default function Information() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [refreshMap, setRefreshMap] = useState(false)
   const [coordinates, setCoordinates] = useState<Coordinates | null>(null)
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  const url = `${pathname}?${searchParams}`;
 
   const getURLParameter = (sParam: string) => {
     const sPageURL = window.location.search.substring(1);
@@ -53,7 +58,7 @@ export default function Information() {
     return "";
   };  
 
-  const fetchAqiData = async () => {
+  const fetchAqiData = useCallback(async () => {
     setRefreshMap(true)
     const name = decodeURIComponent(getURLParameter('city'))
     name.replaceAll('%20', '-');
@@ -75,7 +80,7 @@ export default function Information() {
     } catch (error) {
       console.error('Failed to fetch AQI data:', error);
     }
-  }; 
+  }, []);
 
   const fetchImages = async (name: string) => {
     try {
@@ -105,17 +110,6 @@ export default function Information() {
     }
   }, [pictures, count]);
 
-  // event listener first load
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchAqiData();
-    };
-
-    fetchData().catch((error) => {
-      console.error("Failed to fetch data:", error);
-    });
-  }, []);
-
   const filterPolluants = (item: string): boolean => {
     for (const key in polluants) {
       if (item === key) return true;
@@ -138,6 +132,17 @@ export default function Information() {
       }
     }
   }
+
+  // event listener first load
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchAqiData();
+    };
+
+    fetchData().catch((error) => {
+      console.error("Failed to fetch data:", error);
+    });
+  }, [fetchAqiData, url]);
   
   return (
       <section className='w-full bg-neutral-50'>

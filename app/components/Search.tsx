@@ -34,7 +34,7 @@ const SearchBar = () => {
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [highlightedPrediction, setHighlightedPrediction] = useState<string>('');
   const [hasText, setHasText] = useState<boolean>(false);
-  const [searchLink, setSearchLink] = useState('/information?city=')
+
 
   const handlePredictionMouseEnter = (prediction: string) => {
     setHighlightedPrediction(prediction);
@@ -121,8 +121,7 @@ const SearchBar = () => {
       if (typeof lat === 'number' && typeof lng === 'number') {
         
         // Update the search link
-        const searchLink = `/search?city=${encodeURIComponent(city)}&lat=${lat}&lng=${lng}`;
-        setSearchLink(searchLink);
+        const searchLink = `/information?city=${encodeURIComponent(city)}&lat=${lat}&lng=${lng}`;
   
         // Route to the search link
         router.push(searchLink);

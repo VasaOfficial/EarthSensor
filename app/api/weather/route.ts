@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   
   const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`;
 
-  const res = await fetch(apiUrl);
+  const res = await fetch(apiUrl, { next: { revalidate: 10 } });
   const data = await res.json() as WeatherData;
 
   return NextResponse.json(data);

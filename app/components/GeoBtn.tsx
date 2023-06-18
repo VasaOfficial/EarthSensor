@@ -41,7 +41,7 @@ const GeoBtn: React.FC<GeoBtnProps> = ({ onLocationReceived }) => {
         aria-hidden="true"
         src={Location}
         alt="geo location"
-        quality={30}
+        quality={10}
         width={50}
         height={50}
       />
