@@ -214,7 +214,7 @@ export default function Information() {
                     </div>
                   </div>
                   <figure
-                    className={`relative h-72 md:h-full flex flex-col rounded-md overflow-hidden after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1/3 after:bg-gradient-to-t after:from-black/50 after:to-transparent after:pointer-events-none ${
+                    className={`relative h-64 md:h-full flex flex-col rounded-md overflow-hidden after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1/3 after:bg-gradient-to-t after:from-black/50 after:to-transparent after:pointer-events-none ${
                       aqiData.data.aqi >= 301
                         ? 'bg-[#A159FF]'
                         : aqiData.data.aqi >= 201
@@ -228,13 +228,14 @@ export default function Information() {
                         : aqiData.data.aqi >= 0
                         ? 'bg-[#5BC299]'
                         : 'bg-[#d96a6a]'
-                    }`} style={{ height: '24rem'}}>
+                    }`}>
                     {picture && (
                       <Image
                         src={picture.urls.regular}
                         alt={'random picture of ' + cityName}
                         priority={true}
                         fill
+                        sizes="(max-width: 460px) 100vw, (max-width: 560px) 50vw, 33vw"
                         className="object-cover"
                       />
                     )}
