@@ -99,3 +99,14 @@ export type Coordinates = {
   lat: number;
   lon: number;
 };
+
+export interface GeocodeResponse {
+  results: {
+    address_components: {
+      long_name: string;
+      short_name: string;
+      types: string[];
+    }[];
+    formatted_address: string;
+  }[];
+}
