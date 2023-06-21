@@ -161,7 +161,7 @@ const SearchBar = () => {
         type="text"
         placeholder="Enter Location"
         required
-        className="rounded-lg px-4 py-2 text-black caret-black"
+        className="rounded-lg px-4 py-2 text-black caret-black w-full sm:w-20 md:w-56"
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}

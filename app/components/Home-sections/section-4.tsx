@@ -1,11 +1,10 @@
 "use client";
-
 import Top10Chart from '../Table';
 
 const Section4 = () => {
   return (
-    <section className='z-10 py-28 px-[5vw] flex flex-col items-center justify-center bg-neutral-200 relative mx-auto text-lg w-full'>
-        <article className='z-10 md:min-h-[40rem] flex flex-row items-center gap-24 md:gap-0 md:flex-row w-full max-w-[70rem]'>
+    <section className='z-10 py-24 px-[5vw] flex flex-col items-center justify-center bg-neutral-200 relative mx-auto text-lg w-full'>
+        <article className='z-10 md:min-h-[40rem] flex flex-col items-center gap-24 lg:gap-0 lg:flex-row w-full max-w-[70rem]'>
           <div className='w-full md:w-3/5 h-[40rem] overflow-hidden md:self-start'>
             <div className='flex gap-2 items-center opacity-80'>
               <h3>

@@ -1,9 +1,6 @@
 "use client"
-
 import { useState, useRef, useEffect } from 'react';
 import autoAnimate from '@formkit/auto-animate'
-import Image from 'next/image';
-import City from 'public/assets/polluted-city.jpg';
 
 interface AccordionItemProps {
   title: string;
@@ -72,16 +69,6 @@ const Section2 = () => {
           </span>
         </p>
         <div className="flex w-full md:flex-row justify-center md:items-start gap-12">
-          <figure className="relative h-96 md:w-72 w-[90%] px-[5vw] ">
-            <Image
-              src={City}
-              alt="Polluted City"
-              quality={35}
-              fill
-              className="max-w-full max-h-full rounded-3xl"
-              sizes="(max-width: 400px) 100vw, (max-width: 400px) 50vw, 33vw"
-            />
-          </figure>
           <div className="w-full max-w-full bg-white rounded-lg shadow-lg">
             <AccordionItem title="Industries &amp; heating">
               <p className="text-green-700 font-semibold">

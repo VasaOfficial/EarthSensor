@@ -234,7 +234,7 @@ export default function Information() {
                         src={picture.urls.regular}
                         alt={'random picture of ' + cityName}
                         priority={true}
-                        fill
+                        fill={true}
                         sizes="(max-width: 460px) 100vw, (max-width: 560px) 50vw, 33vw"
                         className="object-cover"
                       />

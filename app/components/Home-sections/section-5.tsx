@@ -1,5 +1,4 @@
 "use client";
-
 import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 
 const Section5 = () => {
@@ -7,13 +6,13 @@ const Section5 = () => {
     <>
       <section className='w-full relative flex flex-col items-center bg-white mx-auto text-lg justify-center'>
         <div className='absolute top-0 left-0 w-full h-[40%] bg-neutral-200 pointer-events-none'></div>
-        <div className='relative flex flex-col gap-28 w-full max-w-[60rem]'>
-          <h2 className='text-3xl w-full md:w-1/2 lg:w-2/5 self-start text-center'>
+        <div className='relative flex-col gap-28 w-full max-w-[60rem] flex justify-center items-center'>
+          <h2 className='text-3xl w-full md:w-1/2 lg:w-2/5 text-center'>
             <b className='font-serif opacity-50'>“ </b>Covid19 showed part of
             the world what it&apos;s like living with fresh air
             <b className='font-serif opacity-50'> „</b>
           </h2>
-          <div className='relative md:w-4/5 self-end right-20'>
+          <div className='relative md:w-4/5'>
             <ReactCompareSlider
               handle={
                 <ReactCompareSliderHandle
