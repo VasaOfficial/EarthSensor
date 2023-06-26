@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { type NextApiRequest } from 'next';
 import { env } from 'app/env.mjs';
 
 type DataItem = {
@@ -13,8 +12,8 @@ type DataItem = {
   };
 }
 
-export async function GET(req: NextApiRequest) {
-  const { latlng } = req.query;
+export async function GET(request: Request, { params }: { params: {latlng: string}}) {
+  const { latlng } = params;
   const apiKey = env.AQI_API;
 
   let apiUrl: string;

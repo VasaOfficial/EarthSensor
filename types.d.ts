@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 export type GeoData = {
   lat: number;
   lon: number;
@@ -9,21 +7,19 @@ export type GeoData = {
   station: { name: string; time: Date}
 };
 
-const ResultSchema = z.object({
-  urls: z.object({
-    regular: z.string(),
-  }),
-  links: z.object({
-    html: z.string(),
-  }),
-  user: z.object({
-    name: z.string(),
-  }),
-});
-
-export const APIResponseSchema = z.object({
-  results: z.array(ResultSchema),
-});
+export type APIResponse = {
+  results: {
+    urls: {
+      regular: string;
+    };
+    links: {
+      html: string;
+    };
+    user: {
+      name: string;
+    };
+  }[];
+};
 
 export type AqiDataSchema = {
   status: string,

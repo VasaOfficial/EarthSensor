@@ -1,5 +1,4 @@
-'use client'; // Error components must be Client components
-
+'use client'
 import Link from 'next/link';
 import { Inconsolata } from 'next/font/google'
 import './styles/error.css'

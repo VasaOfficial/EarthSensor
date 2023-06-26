@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
@@ -9,9 +8,9 @@ const UpBtn = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentPosition = window.pageYOffset;
+      const currentPosition = window.scrollY;
       setScrollPosition(currentPosition);
-      setIsButtonVisible(currentPosition > 500);
+      setIsButtonVisible(scrollPosition > 500);
     };
 
     window.addEventListener("scroll", handleScroll);

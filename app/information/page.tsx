@@ -2,10 +2,9 @@
 import { useState, useEffect, useCallback } from "react"
 import type { Metadata } from "next"
 import { usePathname, useSearchParams } from "next/navigation";
-import { type z } from "zod";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
-import { type AqiDataSchema, type ResultSchema, type APIResponseSchema, type WeatherData, type Coordinates} from "types";
+import { type AqiDataSchema, type WeatherData, type Coordinates, type APIResponse} from "types";
 
 import Footer from "app/components/Footer";
 import UpBtn from "app/components/ScrollBtn";
@@ -20,10 +19,7 @@ export const metadata: Metadata = {
   title: 'Information Page'
 }
 
-export type APIResponseSchema = z.infer<typeof APIResponseSchema>;
-export type ResultSchema = z.infer<typeof ResultSchema>;
-
-export const polluants: { [key: string]: string } = {
+const polluants: Record<string, string>= {
   no2: 'NO2',
   pm25: 'PM2.5',
   pm10: 'PM10',
@@ -37,8 +33,8 @@ export default function Information() {
   const searchParams = useSearchParams()
   const [cityName, setCityName] = useState('');
   const [aqiData, setAqiData] = useState<AqiDataSchema | null>(null);
-  const [pictures, setPictures] = useState<APIResponseSchema | null>(null);
-  const [picture, setPicture] = useState<ResultSchema>();
+  const [pictures, setPictures] = useState<APIResponse | null>(null);
+  const [picture, setPicture] = useState<APIResponse['results'][0]>();
   const [count, setCount] = useState(0);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [refreshMap, setRefreshMap] = useState(false)
@@ -86,7 +82,7 @@ export default function Information() {
     try {
       const res = await fetch(`http://localhost:3000/api/unsplash?query=${name}`);
       if (res.ok) {
-        const images = await res.json() as APIResponseSchema;
+        const images = await res.json() as APIResponse;
         setPictures(images);
       } else {
         throw new Error('Failed to fetch images');
