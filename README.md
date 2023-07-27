@@ -45,11 +45,16 @@ Check out the live demo of EarthSensor [here](https://your-demo-url.com).
 - Unsplash API
 - Mapbox
 
+<h2>Design</h2>
+
+![Untitled-2023-05-23-1645](https://github.com/VasaOfficial/EarthSensor/assets/113908218/dbb10cd7-8c21-4b2f-9161-336beb2071cc)
+
+
 <h2>Installation</h2>
 
 To run EarthSensor locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/earth-sensor.git`
+1. Clone the repository: `git clone https://github.com/VasaOfficial/EarthSensor.git`
 2. Install the dependencies: `cd earth-sensor && npm install`
 3. Add `.env` and based on the env.mjs file add your API keys.
 4. Start the development server: `npm run dev`
