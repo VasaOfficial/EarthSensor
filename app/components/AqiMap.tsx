@@ -96,6 +96,7 @@ export default function AqiMap({ coordinates } : AqiMapProps) {
     fetchData().catch((error) => {
       console.error("Failed to fetch data:", error);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
   return (

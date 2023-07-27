@@ -231,7 +231,7 @@ export default function Information() {
                         alt={'random picture of ' + cityName}
                         priority={true}
                         fill={true}
-                        sizes="(max-width: 460px) 100vw, (max-width: 560px) 50vw, 33vw"
+                        sizes="(max-width: 600px) 100vw, (max-width: 560px) 50vw, 33vw"
                         className="object-cover"
                       />
                     )}
