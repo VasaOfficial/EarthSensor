@@ -1,5 +1,5 @@
 export default async function getAqiData() {
-    const res = await fetch('http://localhost:3000/api/aqi');
+    const res = await fetch('https://earth-sensor.vercel.app/api/aqi');
 
     if (!res.ok) {
         throw new Error('Failed to fetch data');
