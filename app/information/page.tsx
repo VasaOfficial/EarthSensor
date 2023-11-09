@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect, useCallback } from "react"
-import type { Metadata } from "next"
 import { usePathname, useSearchParams } from "next/navigation";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image"
@@ -14,10 +13,6 @@ import AqiMap from "app/components/AqiMap";
 import RandomFacts from "app/components/RandomFacts";
 import Loading from "app/loading";
 import Navbar from "app/components/Navbar";
-
-export const metadata: Metadata = {
-  title: 'Information Page'
-}
 
 const polluants: Record<string, string>= {
   no2: 'NO2',
