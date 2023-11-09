@@ -44,7 +44,6 @@ export default function Weather({ weatherData }: WeatherProps) {
                 </p>
               </div>
             </div>
-            {/* @ts-expect-error Server Component */}
             <WeatherChart weatherData={weatherData.daily} />
           </div>
         </div>
