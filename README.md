@@ -31,7 +31,7 @@ This project was also a great opportunity to include Tailwind CSS in order to ma
 
 <h2>Live Demo</h2>
 
-Check out the live demo of EarthSensor [here](https://your-demo-url.com).
+Check out the live demo of EarthSensor [here](https://earth-sensor.vercel.app/).
 
 <h2>Technologies Used</h2>
 
