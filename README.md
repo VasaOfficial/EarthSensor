@@ -47,8 +47,7 @@ Check out the live demo of EarthSensor [here](https://earth-sensor.vercel.app/).
 
 <h2>Design</h2>
 
-![Untitled-2023-05-23-1645](https://github.com/VasaOfficial/EarthSensor/assets/113908218/dbb10cd7-8c21-4b2f-9161-336beb2071cc)
-
+![Untitled-2023-07-03-1330-min](https://github.com/VasaOfficial/EarthSensor/assets/113908218/cb56ac9d-46ce-4d77-bf62-ac337a0212d1)
 
 <h2>Installation</h2>
 
