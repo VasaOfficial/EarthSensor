@@ -1,6 +1,6 @@
 <h1 align="center">
   
-  ![earthsensor](https://github.com/VasaOfficial/EarthSensor/assets/113908218/091e8683-33f4-4d0e-9830-46c4f3a3950b)
+  ![earthsensor](https://github.com/VasaOfficial/EarthSensor/assets/113908218/33b8867c-735d-4461-9a5e-c0f05c654807)
 
 </h1>
 <p align="center">
@@ -11,7 +11,7 @@
   <em>The app fetches data from the Aqicn REST API and presents it in a user-friendly format using graphs.</em>
 </p>
 
-![Screenshot_3](https://github.com/VasaOfficial/EarthSensor/assets/113908218/f900c1f2-06b0-4f08-94c0-5f624baff7b8)
+![Screenshot_2-min](https://github.com/VasaOfficial/EarthSensor/assets/113908218/0c48491d-f3f3-42fa-bf76-0a0a43693180)
 
 <h2>About</h2>
 
