@@ -10,14 +10,14 @@ const UpBtn = () => {
     const handleScroll = () => {
       const currentPosition = window.scrollY;
       setScrollPosition(currentPosition);
-      setIsButtonVisible(scrollPosition > 500);
+      setIsButtonVisible(currentPosition > 500); // Use currentPosition directly
     };
-
+  
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, []);  
 
   const handleClick = () => {
     window.scrollTo({

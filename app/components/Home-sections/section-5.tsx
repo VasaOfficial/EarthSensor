@@ -12,7 +12,7 @@ const Section5 = () => {
             the world what it&apos;s like living with fresh air
             <b className='font-serif opacity-50'> „</b>
           </h2>
-          <div className='relative md:w-4/5'>
+          <div className='relative md:w-4/5 max-sm:max-w-[90%]'>
             <ReactCompareSlider
               handle={
                 <ReactCompareSliderHandle
