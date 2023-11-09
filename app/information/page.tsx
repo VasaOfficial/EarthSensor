@@ -57,7 +57,7 @@ export default function Information() {
     const lat = getURLParameter('lat');
     const lng = getURLParameter('lng');
     try {
-      const res = await fetch(`http://localhost:3000/api/geolocation?lat=${lat}&lng=${lng}`);
+      const res = await fetch(`https://earth-sensor.vercel.app/api/geolocation?lat=${lat}&lng=${lng}`);
       if (res.ok) {
         const data = await res.json() as AqiDataSchema;
         setAqiData(data);
@@ -75,7 +75,7 @@ export default function Information() {
 
   const fetchImages = async (name: string) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/unsplash?query=${name}`);
+      const res = await fetch(`https://earth-sensor.vercel.app/api/unsplash?query=${name}`);
       if (res.ok) {
         const images = await res.json() as APIResponse;
         setPictures(images);
@@ -111,7 +111,7 @@ export default function Information() {
   const fetchWeather = async (lat: string, lng: string) => {
     if (lat && lng) {
       try {
-        const res = await fetch(`http://localhost:3000/api/weather?lat=${lat}&lng=${lng}`);
+        const res = await fetch(`https://earth-sensor.vercel.app/api/weather?lat=${lat}&lng=${lng}`);
         if (res.ok) {
           const data = await res.json() as WeatherData;
           setWeatherData(data);

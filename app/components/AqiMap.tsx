@@ -74,7 +74,7 @@ export default function AqiMap({ coordinates } : AqiMapProps) {
       const latlng = `${bounds.lat.min},${bounds.lon.max},${bounds.lat.max},${bounds.lon.min}`;
   
       try {
-        const res = await fetch(`http://localhost:3000/api/aqi?latlng=${latlng}`);
+        const res = await fetch(`https://earth-sensor.vercel.app/api/aqi?latlng=${latlng}`);
         if (res.ok) {
           const data = await res.json() as AqiData;
           setData(data);
