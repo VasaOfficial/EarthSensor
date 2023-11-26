@@ -1,6 +1,6 @@
 <h1 align="center">
   
-  ![earthsensor](https://github.com/VasaOfficial/EarthSensor/assets/113908218/091e8683-33f4-4d0e-9830-46c4f3a3950b)
+  ![earthsensor](https://github.com/VasaOfficial/EarthSensor/assets/113908218/33b8867c-735d-4461-9a5e-c0f05c654807)
 
 </h1>
 <p align="center">
@@ -11,7 +11,7 @@
   <em>The app fetches data from the Aqicn REST API and presents it in a user-friendly format using graphs.</em>
 </p>
 
-![Screenshot_3](https://github.com/VasaOfficial/EarthSensor/assets/113908218/f900c1f2-06b0-4f08-94c0-5f624baff7b8)
+![Screenshot_2-min](https://github.com/VasaOfficial/EarthSensor/assets/113908218/0c48491d-f3f3-42fa-bf76-0a0a43693180)
 
 <h2>About</h2>
 
@@ -31,7 +31,7 @@ This project was also a great opportunity to include Tailwind CSS in order to ma
 
 <h2>Live Demo</h2>
 
-Check out the live demo of EarthSensor [here](https://your-demo-url.com).
+Check out the live demo of EarthSensor [here](https://earth-sensor.vercel.app/).
 
 <h2>Technologies Used</h2>
 
@@ -47,8 +47,7 @@ Check out the live demo of EarthSensor [here](https://your-demo-url.com).
 
 <h2>Design</h2>
 
-![Untitled-2023-05-23-1645](https://github.com/VasaOfficial/EarthSensor/assets/113908218/dbb10cd7-8c21-4b2f-9161-336beb2071cc)
-
+![Untitled-2023-07-03-1330-min](https://github.com/VasaOfficial/EarthSensor/assets/113908218/cb56ac9d-46ce-4d77-bf62-ac337a0212d1)
 
 <h2>Installation</h2>
 
