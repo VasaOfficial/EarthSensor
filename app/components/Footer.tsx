@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="flex items-center justify-center">
         <Image className='pb-1' src={Logo} alt='Logo' width="150" height="150"></Image>
         <p className="mx-4 text-white">Copyright © 2023 - All right reserved by Vasilije Pleskonjic</p>
-        <Link href="https://nextjs.org">
+        <Link href="https://vasilije-pleskonjic-portfolio.vercel.app/" target="_blank">
           <Image src={Website} alt='Portfolio Website' width="35" height="35"></Image>
         </Link>
       </div> 
