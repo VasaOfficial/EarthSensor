@@ -1,30 +1,30 @@
-"use client";
-import { useState, useEffect } from "react";
-import Image from "next/image";
+'use client'
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const UpBtn = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isButtonVisible, setIsButtonVisible] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentPosition = window.scrollY;
-      setScrollPosition(currentPosition);
-      setIsButtonVisible(currentPosition > 500); // Use currentPosition directly
-    };
-  
-    window.addEventListener("scroll", handleScroll);
+      const currentPosition = window.scrollY
+      setScrollPosition(currentPosition)
+      setIsButtonVisible(currentPosition > 500) // Use currentPosition directly
+    }
+
+    window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);  
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const handleClick = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
-    });
-  };
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <button
@@ -33,14 +33,14 @@ const UpBtn = () => {
       onClick={handleClick}
       style={{
         opacity: isButtonVisible ? 1 : 0,
-        transform: `translateY(${isButtonVisible ? "0" : "20px"})`,
-        transition: "opacity 0.5s, transform 0.5s",
-        pointerEvents: isButtonVisible ? "auto" : "none",
+        transform: `translateY(${isButtonVisible ? '0' : '20px'})`,
+        transition: 'opacity 0.5s, transform 0.5s',
+        pointerEvents: isButtonVisible ? 'auto' : 'none',
       }}
     >
       <Image src="/assets/up.svg" alt="scroll to top icon" height={50} width={50} />
     </button>
-  );
-};
+  )
+}
 
-export default UpBtn;
+export default UpBtn

@@ -82,19 +82,19 @@ export default function RandomFacts({ bg }: { bg: string }) {
   return (
     <div>
       <div
-        className={`relative flex flex-col items-center justify-center gap-4 w-full rounded-lg p-4 mt-6 ${bg}`}>
-        <h3 className='w-full text-center opacity-70 text-lg'>
-          Random facts about air pollution
-        </h3>
-        <p className='flex gap-4 p-4 justify-center items-start h-auto'>
-          <span className='font-bold whitespace-nowrap'>
+        className={`relative flex flex-col items-center justify-center gap-4 w-full rounded-lg p-4 mt-6 ${bg}`}
+      >
+        <h3 className="w-full text-center opacity-70 text-lg">Random facts about air pollution</h3>
+        <p className="flex gap-4 p-4 justify-center items-start h-auto">
+          <span className="font-bold whitespace-nowrap">
             Fact n°{fact?.index != null ? fact.index + 1 : ''}
           </span>
-          <span className='max-w-[30rem] w-full'>{fact?.text}</span>
+          <span className="max-w-[30rem] w-full">{fact?.text}</span>
         </p>
         <button
           onClick={randomFact}
-          className='absolute bottom-0 right-0 text-3xl font-thin w-12 h-12 text-black'>
+          className="absolute bottom-0 right-0 text-3xl font-thin w-12 h-12 text-black"
+        >
           ↺
         </button>
       </div>

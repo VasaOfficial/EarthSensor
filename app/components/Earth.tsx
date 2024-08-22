@@ -24,7 +24,7 @@ const Globe: React.FC<GlobeProps> = ({ radius }) => {
     <mesh rotation={[0, -Math.PI / 2, 0]}>
       <sphereGeometry args={[radius, 64, 64]} />
       <shaderMaterial
-        attach='material'
+        attach="material"
         args={[
           {
             vertexShader: globeVertexShader,
@@ -44,7 +44,7 @@ const Atmosphere: React.FC<AtmosphereProps> = ({ radius }) => {
     <mesh>
       <sphereGeometry args={[radius, 64, 64]} />
       <shaderMaterial
-        attach='material'
+        attach="material"
         args={[
           {
             vertexShader: atmosphereVertexShader,
@@ -64,20 +64,14 @@ const Earth: React.FC<{ data: GeoData[] }> = ({ data }) => {
     window.innerWidth < 640
       ? window.innerWidth / 500
       : window.innerWidth < 768
-      ? window.innerWidth / 600
-      : Math.min(window.innerWidth / 1300, 1)
+        ? window.innerWidth / 600
+        : Math.min(window.innerWidth / 1300, 1),
   )
 
   // Resize for responsive
   const onWindowResize = () => {
     const width = window.innerWidth
-    setRadius(
-      width < 640
-        ? width / 500
-        : width < 768
-        ? width / 600
-        : Math.min(width / 1300, 1)
-    )
+    setRadius(width < 640 ? width / 500 : width < 768 ? width / 600 : Math.min(width / 1300, 1))
   }
 
   // Listener resize events
@@ -95,13 +89,13 @@ const Earth: React.FC<{ data: GeoData[] }> = ({ data }) => {
     }
   })
 
-
   return (
     <group
       ref={earthRef as React.MutableRefObject<Group>}
       onPointerOver={(e) => {
         e.stopPropagation()
-      }}>
+      }}
+    >
       <Globe radius={radius} />
       <Atmosphere radius={radius} />
       {
@@ -122,7 +116,7 @@ const Earth: React.FC<{ data: GeoData[] }> = ({ data }) => {
                     time: el.station.time,
                   }}
                 />
-              )
+              ),
           )
       }
     </group>

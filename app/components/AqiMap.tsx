@@ -3,39 +3,39 @@ import Map from 'react-map-gl'
 import MapMarker from './MapMarker'
 import gsap from 'gsap'
 import { type Coordinates } from 'types'
-import { env } from 'app/env.mjs';
+import { env } from 'app/env.mjs'
 
 interface AqiMapProps {
-    coordinates: Coordinates | null;
+  coordinates: Coordinates | null
 }
 
 type DataItem = {
-  lat: number;
-  lon: number;
-  uid: number;
-  aqi: string;
+  lat: number
+  lon: number
+  uid: number
+  aqi: string
   station: {
-    name: string;
-    time: string;
-  };
+    name: string
+    time: string
+  }
 }
 
 type AqiData = {
-  data: DataItem[];
-};
+  data: DataItem[]
+}
 
 type CoordBounds = {
   lat: {
-    max: number;
-    min: number;
-  };
+    max: number
+    min: number
+  }
   lon: {
-    max: number;
-    min: number;
-  };
-};
+    max: number
+    min: number
+  }
+}
 
-export default function AqiMap({ coordinates } : AqiMapProps) {
+export default function AqiMap({ coordinates }: AqiMapProps) {
   const [data, setData] = useState<AqiData>()
   const [coordBounds, setCoordBounds] = useState<CoordBounds>()
 
@@ -48,7 +48,7 @@ export default function AqiMap({ coordinates } : AqiMapProps) {
   // tooltip functions
   useEffect(() => {
     const onMouseMove = (event: MouseEvent) => {
-      const tooltip = document.querySelector('#tooltip') as HTMLElement;
+      const tooltip = document.querySelector('#tooltip') as HTMLElement
       const { clientX, clientY } = event
 
       gsap.set('#tooltip', {
@@ -70,37 +70,37 @@ export default function AqiMap({ coordinates } : AqiMapProps) {
         lon: { max: coordinates.lon + 4, min: coordinates.lon - 4 },
       }
       setCoordBounds(bounds)
-  
-      const latlng = `${bounds.lat.min},${bounds.lon.max},${bounds.lat.max},${bounds.lon.min}`;
-  
+
+      const latlng = `${bounds.lat.min},${bounds.lon.max},${bounds.lat.max},${bounds.lon.min}`
+
       try {
-        const res = await fetch(`https://earth-sensor.vercel.app/api/aqi?latlng=${latlng}`);
+        const res = await fetch(`https://earth-sensor.vercel.app/api/aqi?latlng=${latlng}`)
         if (res.ok) {
-          const data = await res.json() as AqiData;
-          setData(data);
+          const data = (await res.json()) as AqiData
+          setData(data)
         } else {
-          throw new Error('Failed to fetch aqi');
+          throw new Error('Failed to fetch aqi')
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
-  };
-  
+  }
+
   // event listener first load
   useEffect(() => {
     const fetchData = async () => {
-      await fetchAqiData();
-    };
+      await fetchAqiData()
+    }
 
     fetchData().catch((error) => {
-      console.error("Failed to fetch data:", error);
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coordinates]);
+      console.error('Failed to fetch data:', error)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coordinates])
 
   return (
-    <div className='w-full h-96 md:h-[30rem] rounded-lg overflow-hidden mt-6 bg-[#353433] p-1'>
+    <div className="w-full h-96 md:h-[30rem] rounded-lg overflow-hidden mt-6 bg-[#353433] p-1">
       {coordBounds && coordinates && (
         <Map
           initialViewState={{
@@ -122,9 +122,10 @@ export default function AqiMap({ coordinates } : AqiMapProps) {
           boxZoom={true}
           mapboxAccessToken={env.NEXT_PUBLIC_MAPBOX_KEY}
           onDragStart={closeTooltip}
-          mapStyle='mapbox://styles/mapbox/dark-v10'>
+          mapStyle="mapbox://styles/mapbox/dark-v10"
+        >
           {data &&
-              data.data.map((item: DataItem) => {
+            data.data.map((item: DataItem) => {
               if (item.aqi === '-' || item.aqi === undefined) return null
               return <MapMarker data={item} key={item.uid} />
             })}

@@ -6,11 +6,10 @@
 @import './styles/weather-icons.css';
 
 .navbar {
-    transition: transform 1s ease;
-    transform: translateY(-100%);
-  }
-  
-  .navbar-show {
-    transform: translateY(0);
-  }
-  
+  transition: transform 1s ease;
+  transform: translateY(-100%);
+}
+
+.navbar-show {
+  transform: translateY(0);
+}

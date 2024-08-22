@@ -1,7 +1,7 @@
 import { Inconsolata } from 'next/font/google'
 import './styles/not-found.css'
 
-const inconsolata = Inconsolata({ subsets: ['latin'] });
+const inconsolata = Inconsolata({ subsets: ['latin'] })
 
 export default function NotFound() {
   return (
@@ -15,5 +15,5 @@ export default function NotFound() {
         </div>
       </div>
     </>
-  );
+  )
 }

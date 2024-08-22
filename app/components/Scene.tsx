@@ -54,9 +54,7 @@ const Scene: React.FC<{ data: GeoData[] }> = ({ data }) => {
   }, [])
 
   return (
-    <div
-      className='h-full cursor-pointer origin-center opacity-0'
-      id='canvas-container'>
+    <div className="h-full cursor-pointer origin-center opacity-0" id="canvas-container">
       <Canvas
         frameloop={frameLoop}
         orthographic
@@ -65,13 +63,8 @@ const Scene: React.FC<{ data: GeoData[] }> = ({ data }) => {
           position: [0, 2, 5],
         }}
       >
-        <GizmoHelper alignment='bottom-right' />
-        <OrbitControls
-          dampingFactor={0.1}
-          enablePan={false}
-          rotateSpeed={0.5}
-          enableZoom={false}
-        />
+        <GizmoHelper alignment="bottom-right" />
+        <OrbitControls dampingFactor={0.1} enablePan={false} rotateSpeed={0.5} enableZoom={false} />
         <Suspense fallback={null}>
           <Earth data={data} />
         </Suspense>

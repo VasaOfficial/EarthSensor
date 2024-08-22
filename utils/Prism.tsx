@@ -1,28 +1,29 @@
 import { useLoader } from '@react-three/fiber'
-import { useState, useEffect, useRef} from 'react'
+import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { format } from 'date-fns'
-import { TextureLoader, type Mesh, type BufferGeometry, type Material } from 'three' 
+import { TextureLoader, type Mesh, type BufferGeometry, type Material } from 'three'
+import * as THREE from 'three';
 
 // Define the type for the `Prism` component props
 type PrismProps = {
-  lat: number;
-  long: number;
-  aqi: number;
-  info: Info;
-  radius: number;
-};
+  lat: number
+  long: number
+  aqi: number
+  info: Info
+  radius: number
+}
 
 type Info = {
-  name: string;
-  aqi: number;
-  time: Date;
-};
+  name: string
+  aqi: number
+  time: Date
+}
 
 type CustomMesh = Mesh<BufferGeometry, Material | Material[]> & {
-  aqi: number;
-  time: Date;
-};
+  aqi: number
+  time: Date
+}
 
 // Prisms color palette
 const colors = {
@@ -83,27 +84,27 @@ export default function Prism({ lat, long, aqi, info, radius }: PrismProps): JSX
         aqi >= 301
           ? 0.019
           : aqi >= 201
-          ? 0.017
-          : aqi >= 151
-          ? 0.015
-          : aqi >= 101
-          ? 0.013
-          : aqi >= 51
-          ? 0.012
-          : 0.01,
+            ? 0.017
+            : aqi >= 151
+              ? 0.015
+              : aqi >= 101
+                ? 0.013
+                : aqi >= 51
+                  ? 0.012
+                  : 0.01,
 
       color:
         aqi >= 301
           ? colors.hazardous
           : aqi >= 201
-          ? colors.veryUnhealthy
-          : aqi >= 151
-          ? colors.unhealthy
-          : aqi >= 101
-          ? colors.high
-          : aqi >= 51
-          ? colors.moderate
-          : colors.good,
+            ? colors.veryUnhealthy
+            : aqi >= 151
+              ? colors.unhealthy
+              : aqi >= 101
+                ? colors.high
+                : aqi >= 51
+                  ? colors.moderate
+                  : colors.good,
     }))
     if (prismRef.current) {
       prismRef.current.lookAt(0, 0, 0)
@@ -111,56 +112,56 @@ export default function Prism({ lat, long, aqi, info, radius }: PrismProps): JSX
       prismRef.current.aqi = info.aqi
       prismRef.current.time = info.time
     }
-    
+
     // Start prism animation
     if (prismRef.current) animatePrism(prismRef.current, aqi)
   }
 
   // Displays tooltip
   const onPointerEnter = () => {
-    const { name, aqi, time } = info;
-    const tooltipName = document.querySelector('#tooltip-name');
-    const tooltipAQI = document.querySelector('#tooltip-aqi');
-    const tooltipTime = document.querySelector('#tooltip-time');
-    const tooltipElement = document.querySelector('#tooltip') as HTMLElement;
-  
+    const { name, aqi, time } = info
+    const tooltipName = document.querySelector('#tooltip-name')
+    const tooltipAQI = document.querySelector('#tooltip-aqi')
+    const tooltipTime = document.querySelector('#tooltip-time')
+    const tooltipElement = document.querySelector('#tooltip') as HTMLElement
+
     if (tooltipName && tooltipAQI && tooltipTime && tooltipElement) {
-      tooltipName.innerHTML = `Station: ${name}`;
+      tooltipName.innerHTML = `Station: ${name}`
       tooltipAQI.innerHTML = `${aqi} AQI (${
         aqi >= 301
           ? 'Hazardous'
           : aqi >= 201
-          ? 'Very unhealthy'
-          : aqi >= 151
-          ? 'Unhealthy'
-          : aqi >= 101
-          ? 'High'
-          : aqi >= 51
-          ? 'Moderate'
-          : 'Good'
-      }) `;
-      tooltipTime.innerHTML = `updated at ${format(new Date(time), 'hh:mm a')}`;
-  
+            ? 'Very unhealthy'
+            : aqi >= 151
+              ? 'Unhealthy'
+              : aqi >= 101
+                ? 'High'
+                : aqi >= 51
+                  ? 'Moderate'
+                  : 'Good'
+      }) `
+      tooltipTime.innerHTML = `updated at ${format(new Date(time), 'hh:mm a')}`
+
       const tooltipColor =
         aqi >= 301
           ? colors.hazardous
           : aqi >= 201
-          ? colors.veryUnhealthy
-          : aqi >= 151
-          ? colors.unhealthy
-          : aqi >= 101
-          ? colors.high
-          : aqi >= 51
-          ? colors.moderate
-          : colors.good;
-  
-      tooltipElement.style.backgroundColor = tooltipColor;
-  
+            ? colors.veryUnhealthy
+            : aqi >= 151
+              ? colors.unhealthy
+              : aqi >= 101
+                ? colors.high
+                : aqi >= 51
+                  ? colors.moderate
+                  : colors.good
+
+      tooltipElement.style.backgroundColor = tooltipColor
+
       gsap.set('#tooltip', {
         display: 'flex',
-      });
+      })
     }
-  };
+  }
 
   // Hides tooltip
   const onPointerLeave = () => {
@@ -173,20 +174,14 @@ export default function Prism({ lat, long, aqi, info, radius }: PrismProps): JSX
 
   return (
     <mesh
-      position={[
-        radius * properties.x,
-        radius * properties.y,
-        radius * properties.z,
-      ]}
+      position={[radius * properties.x, radius * properties.y, radius * properties.z]}
       ref={prismRef}
       onPointerOver={onPointerEnter}
-      onPointerOut={onPointerLeave}>
+      onPointerOut={onPointerLeave}
+    >
       <boxGeometry
-        args={[
-          radius * properties.width,
-          radius * properties.width,
-          radius * properties.height,
-        ]} />
+        args={[radius * properties.width, radius * properties.width, radius * properties.height]}
+      />
       <meshMatcapMaterial matcap={matcapTexture} color={properties.color} />
     </mesh>
   )

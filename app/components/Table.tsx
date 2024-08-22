@@ -1,101 +1,101 @@
-"use client";
-import Image from "next/image";
+'use client'
+import Image from 'next/image'
 
 interface Row {
-  key: string;
-  rank: number;
-  country: string;
-  aqi: number;
-  flag: string;
+  key: string
+  rank: number
+  country: string
+  aqi: number
+  flag: string
 }
 
 const Top10Chart = () => {
   const columns = [
     {
-      key: "rank",
-      label: "Rank",
+      key: 'rank',
+      label: 'Rank',
     },
     {
-      key: "country",
-      label: "Country",
+      key: 'country',
+      label: 'Country',
     },
     {
-      key: "aqi",
-      label: "AQI",
+      key: 'aqi',
+      label: 'AQI',
     },
-  ];
+  ]
   const rows: Row[] = [
     {
-      key: "1",
+      key: '1',
       rank: 1,
-      country: "Chad",
+      country: 'Chad',
       aqi: 89.7,
-      flag: "/assets/flags/chad.jpg",
+      flag: '/assets/flags/chad.jpg',
     },
     {
-      key: "2",
+      key: '2',
       rank: 2,
-      country: "Iraq",
+      country: 'Iraq',
       aqi: 80.1,
-      flag: "/assets/flags/iraq.jpg",
+      flag: '/assets/flags/iraq.jpg',
     },
     {
-      key: "3",
+      key: '3',
       rank: 3,
-      country: "Pakistan",
+      country: 'Pakistan',
       aqi: 70.9,
-      flag: "/assets/flags/pakistan.jpg",
+      flag: '/assets/flags/pakistan.jpg',
     },
     {
-      key: "4",
+      key: '4',
       rank: 4,
-      country: "Bahrain",
+      country: 'Bahrain',
       aqi: 66.6,
-      flag: "/assets/flags/bahrain.jpg",
+      flag: '/assets/flags/bahrain.jpg',
     },
     {
-      key: "5",
+      key: '5',
       rank: 5,
-      country: "Bangladesh",
+      country: 'Bangladesh',
       aqi: 65.8,
-      flag: "/assets/flags/bangladesh.jpg",
+      flag: '/assets/flags/bangladesh.jpg',
     },
     {
-      key: "6",
+      key: '6',
       rank: 6,
-      country: "Burkina Faso",
+      country: 'Burkina Faso',
       aqi: 63,
-      flag: "/assets/flags/burkina-faso.jpg",
+      flag: '/assets/flags/burkina-faso.jpg',
     },
     {
-      key: "7",
+      key: '7',
       rank: 7,
-      country: "Kuwait",
+      country: 'Kuwait',
       aqi: 55.8,
-      flag: "/assets/flags/kuwait.jpg",
+      flag: '/assets/flags/kuwait.jpg',
     },
     {
-      key: "8",
+      key: '8',
       rank: 8,
-      country: "India",
+      country: 'India',
       aqi: 53.3,
-      flag: "/assets/flags/india.jpg",
+      flag: '/assets/flags/india.jpg',
     },
     {
-      key: "9",
+      key: '9',
       rank: 9,
-      country: "Egypt",
+      country: 'Egypt',
       aqi: 46.5,
-      flag: "/assets/flags/egypt.jpg",
+      flag: '/assets/flags/egypt.jpg',
     },
     {
-      key: "10",
+      key: '10',
       rank: 10,
-      country: "Tajikistan",
+      country: 'Tajikistan',
       aqi: 46,
-      flag: "/assets/flags/tajikistan.jpg",
+      flag: '/assets/flags/tajikistan.jpg',
     },
-  ];
+  ]
   return (
     <table className="border-collapse w-full">
       <thead>
@@ -103,7 +103,8 @@ const Top10Chart = () => {
           {columns.map((column) => (
             <th
               key={column.key}
-              className="border-4 border-gray-300 py-2 px-4 text-left text-gray-700 font-bold bg-gray-100">
+              className="border-4 border-gray-300 py-2 px-4 text-left text-gray-700 font-bold bg-gray-100"
+            >
               {column.label}
             </th>
           ))}
@@ -112,20 +113,18 @@ const Top10Chart = () => {
       <tbody>
         {rows.map((item: Row) => (
           <tr key={item.key}>
-            <td className="border-2 border-gray-300 py-2 px-4 font-bold">
-              {item.rank}
-            </td>
+            <td className="border-2 border-gray-300 py-2 px-4 font-bold">{item.rank}</td>
             <td className="border-2 border-gray-300 py-2 px-4 font-bold">
               <div className="flex items-center">
                 <Image
-                src={item.flag}
-                alt={item.country}
-                width={34}
-                height={22}
-                className="mr-2"
-                style={{width: "auto", height: "auto"}}
+                  src={item.flag}
+                  alt={item.country}
+                  width={34}
+                  height={22}
+                  className="mr-2"
+                  style={{ width: 'auto', height: 'auto' }}
                 />
-              {item.country}
+                {item.country}
               </div>
             </td>
             <td className="border-2 border-gray-300 py-2 px-4 font-bold text-red-600">
@@ -135,7 +134,7 @@ const Top10Chart = () => {
         ))}
       </tbody>
     </table>
-  );
-};
+  )
+}
 
-export default Top10Chart;
+export default Top10Chart

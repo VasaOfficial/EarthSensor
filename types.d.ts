@@ -1,108 +1,108 @@
 export type GeoData = {
-  lat: number;
-  lon: number;
-  aqi: number;
-  info: { name: string; aqi: number; time: Date };
-  radius: number;
-  station: { name: string; time: Date}
-};
+  lat: number
+  lon: number
+  aqi: number
+  info: { name: string; aqi: number; time: Date }
+  radius: number
+  station: { name: string; time: Date }
+}
 
 export type APIResponse = {
   results: {
     urls: {
-      regular: string;
-    };
+      regular: string
+    }
     links: {
-      html: string;
-    };
+      html: string
+    }
     user: {
-      name: string;
-    };
-  }[];
-};
+      name: string
+    }
+  }[]
+}
 
 export type AqiDataSchema = {
-  status: string,
+  status: string
   data: {
-    aqi: number;
+    aqi: number
     city: {
-      name: string;
-    };
+      name: string
+    }
     time: {
-      iso: string;
-    };
+      iso: string
+    }
     iaqi: {
       [key: string]: {
-        v: number;
-      };
-    };
+        v: number
+      }
+    }
     forecast: {
       daily: {
-        [key: string]: DailyForecast[];
-        o3: DailyForecast[];
-        pm10: DailyForecast[];
-        pm25: DailyForecast[];
-      };
-    };
-  };
-};
-
-export type DailyForecast = {
-  avg: number;
-  day: string;
-  max: number;
-  min: number;
-};
-
-export type PolluantsDefinition = {
-  [key: string]: string;
-  'PM2.5': string;
-  PM10: string;
-  O3: string;
-  NO2: string;
-  SO2: string;
-  CO: string;
+        [key: string]: DailyForecast[]
+        o3: DailyForecast[]
+        pm10: DailyForecast[]
+        pm25: DailyForecast[]
+      }
+    }
+  }
 }
 
 export type DailyForecast = {
-  avg: number;
-};
+  avg: number
+  day: string
+  max: number
+  min: number
+}
+
+export type PolluantsDefinition = {
+  [key: string]: string
+  'PM2.5': string
+  PM10: string
+  O3: string
+  NO2: string
+  SO2: string
+  CO: string
+}
+
+export type DailyForecast = {
+  avg: number
+}
 
 export type WeatherData = {
-  current: CurrentWeather;
-  daily: DailyWeather[];
+  current: CurrentWeather
+  daily: DailyWeather[]
 }
 
 type CurrentWeather = {
-  temp: number;
-  feels_like: number;
-  humidity: number;
-  uvi: number;
-  wind_speed: number;
-  weather: WeatherCondition[];
+  temp: number
+  feels_like: number
+  humidity: number
+  uvi: number
+  wind_speed: number
+  weather: WeatherCondition[]
 }
 
 type WeatherCondition = {
-  id: number;
-  description: string;
+  id: number
+  description: string
 }
- 
+
 export type DailyWeather = {
-    day: number;
-};
+  day: number
+}
 
 export type Coordinates = {
-  lat: number;
-  lon: number;
-};
+  lat: number
+  lon: number
+}
 
 export interface GeocodeResponse {
   results: {
     address_components: {
-      long_name: string;
-      short_name: string;
-      types: string[];
-    }[];
-    formatted_address: string;
-  }[];
+      long_name: string
+      short_name: string
+      types: string[]
+    }[]
+    formatted_address: string
+  }[]
 }
