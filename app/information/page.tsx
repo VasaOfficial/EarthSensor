@@ -146,7 +146,7 @@ export default function Information() {
             {/* --- TITLE SECTION --- */}
             {cityName !== 'here' ? (
               <div className="flex flex-col gap-2">
-                <h1 className=" text-3xl font-bold tracking-wider">
+                <h1 className=" text-3xl m-3 font-bold tracking-wider">
                   Air quality in{' '}
                   <b className="capitalize font-bold tracking-wider">
                     {decodeURIComponent(cityName)}

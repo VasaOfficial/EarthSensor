@@ -19,7 +19,6 @@ export default function Navbar({ className }: NavbarProps) {
             alt="Logo"
             width={150}
             height={150}
-            style={{ width: 'auto', height: 'auto' }}
           ></Image>
         </Link>
         <SearchBar />
