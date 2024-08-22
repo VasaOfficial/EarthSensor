@@ -9,7 +9,6 @@
     "allowJs": true,
     "checkJs": true,
     "skipLibCheck": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -18,9 +17,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "sourceMap": true,
     "incremental": true,
     "noUncheckedIndexedAccess": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "preserveConstEnums": true,
     "baseUrl": ".",
+    "outDir": "dist/",
     "paths": {
       "~/*": [
         "./src/*"
@@ -30,7 +34,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strict": false
   },
   "include": [
     ".eslintrc.cjs",
@@ -47,6 +52,6 @@
   ],
   "exclude": [
     "node_modules",
-    "**/*.jsx",
+    "**/*.jsx"
   ]
 }
